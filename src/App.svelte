@@ -29,7 +29,7 @@
     const q = query(actividadesRef, orderBy("created"));
 
     const actividades = collectionData(q, { idField: "id" }).pipe(
-        startWith([])
+        startWith([]) 
     ); // converts into observable
 
 	*/
@@ -80,6 +80,14 @@
 		text-transform: uppercase;
 		font-size: 4em;
 		font-weight: 100;
+
+
+	}
+
+	@media (max-width:900px){
+		h1{
+			 font-size: 1.6em;;
+		} 
 	}
 	th {
 		text-align: center;
