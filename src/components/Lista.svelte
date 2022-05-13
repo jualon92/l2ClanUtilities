@@ -1,37 +1,52 @@
 <script>
     import { ListaPersonas } from "../stores";
-    export let nombre;
-    export let puntaje;
-    import {fade, scale} from "svelte/transition"
-    const borrarItem = (nombre) => {
-        //encontrar item a borrar
-        console.log("ppp")
+    import { get, writable } from "svelte/store";
+    import { onMount } from "svelte";
+    export let nombrePersona;
+    export let puntos;
+    import { fade, scale } from "svelte/transition";
+    import { collection } from "firebase/firestore";
+    import { db } from "../firebase.js";
+
+    import { addPuntaje, deleteNombreDB } from "../db.js";
+
+    
+    const borrarItem = async (nombre) => {
+ 
         ListaPersonas.update((lista) => {
-            return lista.filter((ele) => ele.nombre != nombre); //lista sin parametro
+            return lista.filter((ele) => ele.nombrePersona != nombre); //lista sin parametro
         });
+        console.log(get(ListaPersonas));
+        deleteNombreDB(nombre);
     };
 
-    const restarPuntaje = () => { //no menor a 0
-        
-        let puntajeFinal = puntaje - 10
-       
-        if (puntajeFinal < 0){
-            puntaje = 0
-        }else{
-            puntaje = puntajeFinal
+    const sumarPuntaje = async (nombre) => {
+        //no menor a 0
+        puntos = parseInt(puntos) + 1;
+
+        addPuntaje(nombre, puntos);
+    };
+
+    const restarPuntaje = async () => { //refactor
+        let puntajeFinal = puntos - 1;
+        if (puntajeFinal < 0) {
+            puntos = 0;
+        } else {
+            puntos = puntajeFinal;
         }
-    }
-   
+
+        addPuntaje(nombrePersona, puntos);
+    };
 </script>
 
-<tr class="table-default"  in:scale out:fade={{ duration: 500 }}  >
-    <th scope="row " class=" row-nombre">{nombre}</th>
-    <td>{puntaje}</td>
-    <td  >
-        <button  on:click={() => restarPuntaje()}
+<tr class="table-default" in:scale out:fade={{ duration: 500 }}>
+    <th scope="row " class=" row-nombre">{nombrePersona}</th>
+    <td>{puntos}</td>
+    <td>
+        <button
+            on:click={() => restarPuntaje()}
             type="button"
             class="btn btn-outline-warning"
-           
         >
             <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -46,7 +61,11 @@
                 />
             </svg>
         </button>
-        <button type="button" class="btn btn-outline-success"  on:click={() => puntaje = puntaje + 10}>
+        <button
+            type="button"
+            class="btn btn-outline-success"
+            on:click={() => sumarPuntaje(nombrePersona)}
+        >
             <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="22"
@@ -63,7 +82,11 @@
     </td>
 
     <td>
-        <button type="button" class="btn btn-danger"   on:click={() => borrarItem(nombre)}  >
+        <button
+            type="button"
+            class="btn btn-danger"
+            on:click={() => borrarItem(nombrePersona)}
+        >
             <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="22"
@@ -77,30 +100,22 @@
                 />
             </svg>
         </button>
-    </td  >
+    </td>
 </tr>
 
 <style>
-
-    @media (max-width:900px){
-        button{
-            margin-bottom:10px;
+    @media (max-width: 900px) {
+        button {
+            margin-bottom: 10px;
         }
     }
-    .row-nombre{
-        width:160px;
+    .row-nombre {
+        width: 160px;
     }
     button {
         margin-left: 5px;
     }
-    .form-control:focus {
-        border-color: #28a745;
-        box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.25);
-    }
-    .add-point {
-        display: flex;
-        justify-content: center;
-    }
+  
     td {
         width: 140px;
     }

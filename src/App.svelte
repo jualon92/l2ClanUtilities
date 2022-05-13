@@ -3,46 +3,58 @@
 	import { fade, scale } from "svelte/transition";
 	import Lista from "./components/Lista.svelte";
 	import { ListaPersonas } from "./stores.js";
-	import AddPersona from "./components/AddPersona.svelte"
+	import { get} from "svelte/store"
+	import AddPersona from "./components/AddPersona.svelte";
+	import Login from "./components/Login.svelte"
+	import { db } from "./firebase.js";
+	import {
+		addDoc,
+		updateDoc,
+		deleteDoc,
+		collection,
+		getFirestore,
+		getDoc,
+		query,orderBy,getDocs
+	} from "firebase/firestore";
+	import { startWith } from "rxjs/operators";
+    import { collectionData } from "rxfire/firestore";
+	import { getAll } from "./db"
+	
 	let nombre = "juan";
 	let name = "matias";
-	 
-	onMount(() => {
-		console.log($ListaPersonas);
-	});
+
+	
+	/*
+    const actividadesRef = collection(db, "rank"); //ini, refe
+    const q = query(actividadesRef, orderBy("created"));
+
+    const actividades = collectionData(q, { idField: "id" }).pipe(
+        startWith([])
+    ); // converts into observable
+
+	*/
+ 
+
+    onMount(async () => {
+ 
+        let lista = await getAll()
+		console.log("array")
+		ListaPersonas.set(lista)
+		console.log(get(ListaPersonas))
+        
+    });
+
+
 </script>
 
-<svelte:head>
-   
- 
-</svelte:head>
+
+<svelte:head />
 <main>
 	<h1>Tabla de puntos</h1>
-	 
 </main>
 
-<div class="contenedor table-responsive	 ">
-	<table class="table table-hover w-60 table-striped   ">
-		<thead>
-			<tr>
-				<th scope="col">Personaje</th>
-				<th scope="col">Points</th>
-				<th scope="col">Add</th>
-				<th scope="col">Borrar</th>
-			</tr>
-		</thead>
-		<tbody  >  
-			{#each $ListaPersonas as user}
-		 
-				<Lista {...user} /> <!-- nombre={nombre}-->
-		 
-			{/each}
-		</tbody>
-	</table>
-</div>
-
-
-<AddPersona/> 
+<Login/> 
+ 
 
 <style>
 	/*
