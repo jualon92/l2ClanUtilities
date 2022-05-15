@@ -1,7 +1,9 @@
 <script>
-    import { ListaPersonas } from "../stores.js";
+    import { ListaPersonas, estaEnLogin } from "../stores.js";
     import { addDoc, collection } from "firebase/firestore";
     import { db, auth } from "../firebase";
+import { get } from "svelte/store";
+    
     const aparecerInput = false;
     let nombrePersona = "";
     let puntos = 0;
@@ -46,7 +48,16 @@
     };
 
     const delogear = async () => {
-        await auth.signOut();
+         
+        estaEnLogin.set(true) 
+        console.log(get(estaEnLogin))
+
+        window.localStorage.setItem("logeando", true)
+        await auth.signOut(); 
+        /*console.log("login")
+        document.querySelector("body").style.backgroundImage =  "url('https://cdn.discordapp.com/attachments/973519440606003244/974641834460594206/259792.jpg')";
+        console.log(document.querySelector("body"))*/
+      
     };
 </script>
 

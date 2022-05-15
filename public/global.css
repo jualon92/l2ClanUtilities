@@ -61,6 +61,41 @@ button:not(:disabled):active {
 button:focus {
 	border-color: #666;
 }
+ 
+.imagen{ 
+  
+background-repeat: no-repeat;
+background-size:cover;
+background-position-x: center;
 
+} 
 
+@media (max-width:1000px){
+	.imagen{
+		display:flex;
+		flex-direction: column;
+		justify-content: flex-end;
+	}
+}
+@media (min-width:1000px){
+	.imagen{
+		display:flex;
+		flex-direction: column;
+justify-content: center;
+ 
+ 
+	}
+ 
+
+	.margin-login, .contenedor-main{
+		padding:0!important;
+	}
+	.contenedor-user{
+		transform: translateY(-50px); /*no me gusta centrado*/
+	}
+	 
+	.flex-login{
+		justify-content: flex-end;
+	}
+}
  

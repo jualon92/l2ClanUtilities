@@ -7,6 +7,7 @@
     import { fade, scale } from "svelte/transition";
     import { collection } from "firebase/firestore";
     import { db } from "../firebase.js";
+    import { Body } from 'svelte-body';
 
     import { addPuntaje, deleteNombreDB } from "../db.js";
 
@@ -37,9 +38,17 @@
 
         addPuntaje(nombrePersona, puntos);
     };
+
+    onMount( () => {
+        console.log("entre")
+      //  document.querySelector("body").style.backgroundImage = "none";
+      //  console.log(document.querySelector("body"))
+    })
 </script>
 
-<tr class="table-default" in:scale out:fade={{ duration: 500 }}>
+ 
+
+<tr class="table-default" in:scale  >
     <th scope="row " class=" row-nombre">{nombrePersona}</th>
     <td>{puntos}</td>
     <td>
@@ -104,6 +113,8 @@
 </tr>
 
 <style>
+   
+
     @media (max-width: 900px) {
         button {
             margin-bottom: 10px;
