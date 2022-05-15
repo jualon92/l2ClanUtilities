@@ -5,13 +5,14 @@
         onAuthStateChanged,
     } from "firebase/auth";
     import { authState } from "rxfire/auth";
-    import { fade } from "svelte/transition";
+    import { fade , fly} from "svelte/transition";
     import { onMount, onDestroy } from "svelte";
     import AddPersona from "../components/AddPersona.svelte";
     import Lista from "../components/Lista.svelte";
     import { ListaPersonas, estaEnLogin} from "../stores";
     import {get } from "svelte/store"
     import {Body} from "svelte-body"
+   
     let email = "";
     let password = "";
     $: errorLogin = "";
@@ -61,6 +62,14 @@
         console.log(email, password);
         await signInWithEmailAndPassword(auth, email, password).catch((err) => {
             errorLogin = "credenciales incorrectas";
+            password = ""
+           const elemento =  document.querySelector(".card")
+           elemento.classList.add("animate__animated","animate__shakeX")
+           setTimeout( () => { 
+                elemento.classList.remove("animate__animated","animate__shakeX")
+                errorLogin = ""
+                
+           }, 2000)
         });
 
 
@@ -97,8 +106,8 @@
     {:else}
     <div class="container h-100 contenedor-user">
  
-        <div class="flex-login row   h-100">
-            <div class="col-xxl-4 col-xl-5 col-lg-5 col-md-7 col-sm-9">
+        <div class="flex-login row   h-100  " in:fly={{y:-250, duration:2000, delay: 300 }}>
+            <div class="col-xxl-4 col-xl-5 col-lg-5 col-md-7 col-sm-9  ">
                 <div class="text-center  margen-login">
                    
                 </div>
@@ -126,8 +135,8 @@
                             </div>
 
                             <div class="d-flex align-items-center">
-                                
-                                <button type="submit" class="btn btn-primary ms-auto" on:click|preventDefault={logearConMail}>
+                                <div class="show-error">{errorLogin}</div>
+                                <button type="submit" class="btn btn-primary ms-auto" on:click|preventDefault={logearConMail}  >
                                     Login
                                 </button>
                             </div>
@@ -172,4 +181,7 @@
     thead {
         text-align: center;
     }
+
+
+    
 </style>
