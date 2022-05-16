@@ -8,7 +8,9 @@ Los usuarios  solo pueden ver tabla .
 Fondo y estetica pedida por cliente
 
 
-Se utilizo firebase auth y firestore db para tabla de nombre-puntos, y para servir pagina segun si rol es usuario o administrador
+Se utilizo firebase auth y firestore db para tabla de nombre-puntos, y para servir pagina segun si rol es usuario o administrador.
+
+
 SvelteKit para SPA, animate.css, y bootstrap(bootswatch flatly theme)
 
 Login
