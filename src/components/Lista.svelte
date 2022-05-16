@@ -1,5 +1,5 @@
 <script>
-    import { ListaPersonas } from "../stores";
+    import { ListaPersonas , EsAdmin} from "../stores";
     import { get, writable } from "svelte/store";
     import { onMount } from "svelte";
     export let nombrePersona;
@@ -8,9 +8,9 @@
     import { collection } from "firebase/firestore";
     import { db } from "../firebase.js";
     import { Body } from 'svelte-body';
-
+    
     import { addPuntaje, deleteNombreDB } from "../db.js";
-
+  
     
     const borrarItem = async (nombre) => {
  
@@ -40,9 +40,9 @@
     };
 
     onMount( () => {
+
         console.log("entre")
-      //  document.querySelector("body").style.backgroundImage = "none";
-      //  console.log(document.querySelector("body"))
+      
     })
 </script>
 
@@ -51,6 +51,7 @@
 <tr class="table-default" in:scale  >
     <th scope="row " class=" row-nombre">{nombrePersona}</th>
     <td>{puntos}</td>
+   
     <td>
         <button
             on:click={() => restarPuntaje()}
@@ -110,6 +111,7 @@
             </svg>
         </button>
     </td>
+    
 </tr>
 
 <style>

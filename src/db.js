@@ -16,6 +16,11 @@ import {
 const actividadesRef = collection(db, "rank"); //ini, refe
 //const query = db.collection("actividades").where("uid", "==", uid).orderBy("created")
 
+export const addNameToDb = async (name) =>
+await addDoc(actividadesRef, {
+    nombrePersona:name,
+    puntos: "0",
+});
 
 const getIdByName = async (nombre) => {
     const q = query(

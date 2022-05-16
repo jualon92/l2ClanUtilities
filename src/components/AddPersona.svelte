@@ -1,9 +1,9 @@
 <script>
-    import { ListaPersonas, estaEnLogin } from "../stores.js";
+    import { ListaPersonas, estaEnLogin, EsAdmin } from "../stores.js";
     import { addDoc, collection } from "firebase/firestore";
     import { db, auth } from "../firebase";
-import { get } from "svelte/store";
-    
+    import { get } from "svelte/store";
+
     const aparecerInput = false;
     let nombrePersona = "";
     let puntos = 0;
@@ -11,6 +11,7 @@ import { get } from "svelte/store";
     const actividadesRef = collection(db, "rank"); //ini, refe
     //const query = db.collection("actividades").where("uid", "==", uid).orderBy("created")
 
+  
     const addToDb = async () =>
         await addDoc(actividadesRef, {
             nombrePersona,
@@ -48,16 +49,15 @@ import { get } from "svelte/store";
     };
 
     const delogear = async () => {
-         
-        estaEnLogin.set(true) 
-        console.log(get(estaEnLogin))
+        estaEnLogin.set(true);
+        console.log(get(estaEnLogin));
 
-        window.localStorage.setItem("logeando", true)
-        await auth.signOut(); 
+        window.localStorage.setItem("logeando", true);
+        EsAdmin.set(null);
+        await auth.signOut();
         /*console.log("login")
         document.querySelector("body").style.backgroundImage =  "url('https://cdn.discordapp.com/attachments/973519440606003244/974641834460594206/259792.jpg')";
         console.log(document.querySelector("body"))*/
-      
     };
 </script>
 
@@ -76,6 +76,7 @@ import { get } from "svelte/store";
         on:click={agregarPersona}>Agregar</button
     >
 </div>
+
 <div class="d-flex justify-content-end mt-3">
     <button
         class="input-group-prepend btn btn-primary p-2  "
