@@ -3,7 +3,7 @@
     import { addDoc, collection } from "firebase/firestore";
     import { db, auth } from "../firebase";
     import { get } from "svelte/store";
-
+    import { getAll } from "../db"
     const aparecerInput = false;
     let nombrePersona = "";
     let puntos = 0;
@@ -53,6 +53,17 @@
         console.log(get(estaEnLogin));
 
         window.localStorage.setItem("logeando", true);
+
+        window.localStorage.setItem("logeando", true)
+        EsAdmin.set(null)
+ 
+        let lista = await getAll()
+		console.log("array")
+		ListaPersonas.set(lista)
+		console.log(get(ListaPersonas))
+
+
+
         EsAdmin.set(null);
         await auth.signOut();
         /*console.log("login")

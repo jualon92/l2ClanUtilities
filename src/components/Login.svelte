@@ -20,7 +20,7 @@
 
     let emailRegistro = "";
     let passwordRegistro = "";
-    let p = false;
+    let registrando = false;
     let nombrePJ = "";
     let email = "";
     let password = "";
@@ -104,42 +104,44 @@
     };
 
     const cambiarReg = () => {
-        p = !p;
+        registrando = !registrando;
     };
 
-    const nombreYaExiste = (name) => {  //si ya existe nombre, no agregar al registro 
-         
-        let lista = get(ListaPersonas)
-        return lista.map( ele => ele.nombrePersona).includes(name)
- 
+    const nombreYaExiste = (name) => {
+        //si ya existe nombre, no agregar al registro
+
+        let lista = get(ListaPersonas);
+        return lista.map((ele) => ele.nombrePersona).includes(name);
     };
     const registrarUsuario = async () => {
-        await createUserWithEmailAndPassword(  //crear id y pass
+        await createUserWithEmailAndPassword(
+            //crear id y pass
             auth,
             emailRegistro,
             passwordRegistro
         )
-            .then((userCredential) => {   
-                //cree usuario en cliente 
-              
+            .then((userCredential) => {
+                //cree usuario en cliente
+
                 const user = userCredential.user;
                 console.log("user creado", userCredential.user);
                 window.localStorage.setItem("logeando", "true");
                 console.log(nombrePJ);
                 const nuevaPersona = { nombrePersona: nombrePJ, puntos: 0 };
 
-                if (!nombreYaExiste(nombrePJ)) { //si no existe nombre agregarlo
+                if (!nombreYaExiste(nombrePJ)) {
+                    //si no existe nombre agregarlo
                     ListaPersonas.update((listaActual) => {
                         console.log([...listaActual, nuevaPersona]);
                         return [...listaActual, nuevaPersona];
                     });
-                    
-                    addNameToDb(nombrePJ); //agregar a db 
-                }else{
-                    console.warn("ya existe ese nombre")  
+
+                    addNameToDb(nombrePJ); //agregar a db
+                } else {
+                    console.warn("ya existe ese nombre");
                 }
 
-                cambiarReg(); 
+                cambiarReg();
             })
             .catch((error) => {
                 const errorCode = error.code;
@@ -203,7 +205,7 @@
         <div class="spinner-border spinner" role="status">
             <span class="sr-only" />
         </div>
-    {:else if !p}
+    {:else if !registrando}
         <div class="container h-100 contenedor-user">
             <div
                 class="flex-login row   h-100"
@@ -392,19 +394,23 @@
 </section>
 
 <style>
-    .spinner{
+    .spinner {
         margin: 0 auto;
-        display:flex;
+        display: flex;
         justify-content: center;
         align-content: center;
-        margin-top:30%;
+        margin-top: 30%;
     }
-    .tabla-usuario {
-        width: 50%;
-    }
+
     .contenedor-usuario {
         display: flex;
         justify-content: center;
+    }
+
+    @media (min-width: 1000px) {
+        .tabla-usuario {
+            width: 60%;
+        }
     }
     /*
     .contenedor-login{

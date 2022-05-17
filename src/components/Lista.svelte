@@ -11,7 +11,9 @@
     
     import { addPuntaje, deleteNombreDB } from "../db.js";
   
-    
+    import { getAll } from "../db"
+
+   
     const borrarItem = async (nombre) => {
  
         ListaPersonas.update((lista) => {
@@ -39,10 +41,13 @@
         addPuntaje(nombrePersona, puntos);
     };
 
-    onMount( () => {
+    onMount( async() => {
 
         console.log("entre")
-      
+       /* let lista = await getAll()
+		console.log("array")
+		ListaPersonas.set(lista)
+		console.log(get(ListaPersonas))*/
     })
 </script>
 
@@ -50,7 +55,7 @@
 
 <tr class="table-default" in:scale  >
     <th scope="row " class=" row-nombre">{nombrePersona}</th>
-    <td>{puntos}</td>
+    <td> <span class="badge bg-primary rounded-pill">{puntos}</span></td>
    
     <td>
         <button
@@ -116,7 +121,10 @@
 
 <style>
    
-
+    .badge{
+        font-size:1em;
+        padding: 0.4em 0.65em;
+    }
     @media (max-width: 900px) {
         button {
             margin-bottom: 10px;

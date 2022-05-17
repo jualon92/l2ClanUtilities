@@ -3,7 +3,7 @@
     import { addDoc, collection } from "firebase/firestore";
     import { db, auth } from "../firebase";
 import { get } from "svelte/store";
-    
+    import { getAll} from "../db"
     const aparecerInput = false;
  
 
@@ -14,6 +14,12 @@ import { get } from "svelte/store";
 
         window.localStorage.setItem("logeando", true)
         EsAdmin.set(null)
+ 
+        let lista = await getAll()
+		console.log("array")
+		ListaPersonas.set(lista)
+		console.log(get(ListaPersonas))
+
         await auth.signOut(); 
         /*console.log("login")
         document.querySelector("body").style.backgroundImage =  "url('https://cdn.discordapp.com/attachments/973519440606003244/974641834460594206/259792.jpg')";

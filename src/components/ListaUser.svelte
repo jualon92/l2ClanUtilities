@@ -8,12 +8,15 @@
     import { collection } from "firebase/firestore";
     import { db } from "../firebase.js";
     import { Body } from 'svelte-body';
-    
+    import { getAll } from "../db"
     import { addPuntaje, deleteNombreDB } from "../db.js";
   
-
-    onMount( () => {
- 
+    
+    onMount( async () => {
+     /*   let lista = await getAll()
+		console.log("array")
+		ListaPersonas.set(lista)
+		console.log(get(ListaPersonas))*/
     })
 </script>
 
@@ -21,16 +24,19 @@
 
 <tr class="table-default" in:scale  >
     <th scope="row " class=" row-nombre">{nombrePersona}</th>
-    <td>{puntos}</td>
+    <td>  <span class="badge bg-primary rounded-pill">{puntos}</span> </td>
     
 </tr>
 
 <style>
    
- 
-  
+    .badge{
+        padding: 0.4em 0.65em!important;
+        font-size: 1em!important;
+    }
+    
     td {
-        width: 140px;
+        /* width: 140px;*/
     }
     td,
     th {
