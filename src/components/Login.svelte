@@ -17,7 +17,8 @@
     import ListaUser from "../components/ListaUser.svelte";
     import AddPersonaUser from "../components/AddPersonaUser.svelte";
     import { addNameToDb } from "../db";
-
+    import TablaUser from "./TablaUser.svelte";
+    import TablaAdmin from "./TablaAdmin.svelte";
     let emailRegistro = "";
     let passwordRegistro = "";
     let registrando = false;
@@ -33,7 +34,7 @@
     onMount(() => {
         //redirect causa refresh, al refresh seteo bandera.  template render segun bandera
         console.log("es admin? : ", get(EsAdmin));
-        console.log("reg", p);
+        //  console.log("reg", p);
         estaLogeando();
     });
 
@@ -80,6 +81,13 @@
             console.log("delog");
             activo = false;
             window.console.log(get(estaEnLogin));
+
+            //reset var when delog
+            email = "";
+            password = "";
+            emailRegistro = "";
+            passwordRegistro = "";
+            nombrePJ = "";
         }
     });
 
@@ -164,42 +172,9 @@
 
 <section>
     {#if $EsAdmin === false && $user}
-        <div class="contenedor table-responsive contenedor-usuario">
-            <table class="table table-hover w-60 table-striped tabla-usuario  ">
-                <thead>
-                    <tr>
-                        <th scope="col">Personaje</th>
-                        <th scope="col">Points</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {#each $ListaPersonas as user}
-                        <ListaUser {...user} />
-                    {/each}
-                </tbody>
-            </table>
-        </div>
-        <AddPersonaUser />
+        <TablaUser />
     {:else if $EsAdmin && $user}
-        <div class="contenedor table-responsive	 ">
-            <table class="table table-hover w-60 table-striped   ">
-                <thead>
-                    <tr>
-                        <th scope="col">Personaje</th>
-                        <th scope="col">Points</th>
-                        <th scope="col">Add</th>
-                        <th scope="col">Borrar</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {#each $ListaPersonas as user}
-                        <Lista {...user} />
-                    {/each}
-                </tbody>
-            </table>
-        </div>
-
-        <AddPersona />
+        <TablaAdmin />
     {:else if activo}
         <!--carga -->
         <div class="spinner-border spinner" role="status">

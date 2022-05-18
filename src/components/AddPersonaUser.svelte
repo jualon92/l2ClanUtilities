@@ -19,7 +19,7 @@ import { get } from "svelte/store";
 		console.log("array")
 		ListaPersonas.set(lista)
 		console.log(get(ListaPersonas))
-
+        
         await auth.signOut(); 
         /*console.log("login")
         document.querySelector("body").style.backgroundImage =  "url('https://cdn.discordapp.com/attachments/973519440606003244/974641834460594206/259792.jpg')";
