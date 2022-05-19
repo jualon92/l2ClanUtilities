@@ -83,7 +83,7 @@
         style="width:150px;"
     />
     <button
-        class="input-group-prepend btn btn-primary p-2  "
+        class="input-group-prepend btn btn-primary p-2 add-persona "
         on:click={agregarPersona}>Agregar</button
     >
 </div>
@@ -96,6 +96,12 @@
 </div>
 
 <style>
+    .add-persona{
+        justify-self: center;
+    align-self: center;
+    justify-content: center;
+    }
+
     button {
         border-radius: 6px;
     }
