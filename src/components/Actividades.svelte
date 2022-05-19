@@ -39,6 +39,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    min-width: 100%;
     }
     .contenedor-actividades{
     

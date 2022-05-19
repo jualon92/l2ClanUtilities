@@ -7,7 +7,7 @@
 
 
 
-<div class=" table-bordered contenedor table-responsive contenedor-usuario mt-5">
+<div class=" table-bordered contenedor table-responsive contenedor-usuario ">
     <table class="table table-hover w-60 table-striped tabla-usuario  ">
         <thead>
             <tr>

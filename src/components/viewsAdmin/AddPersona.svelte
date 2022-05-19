@@ -72,7 +72,7 @@
     };
 </script>
 
-<div class="input-group mt-3">
+<div class="input-group mt-3 add-persona">
     <!--   <p >Puntos</p>
     <input  bind:value={puntos} type="text" >  -->
 
@@ -83,12 +83,12 @@
         style="width:150px;"
     />
     <button
-        class="input-group-prepend btn btn-primary p-2 add-persona "
+        class="input-group-prepend btn btn-primary p-2 "
         on:click={agregarPersona}>Agregar</button
     >
 </div>
 
-<div class="d-flex justify-content-end mt-3">
+<div class="d-flex justify-content-end mt-3 add-persona">
     <button
         class="input-group-prepend btn btn-primary p-2  "
         on:click={delogear}>Salir</button
@@ -96,10 +96,13 @@
 </div>
 
 <style>
+    
+ 
     .add-persona{
         justify-self: center;
     align-self: center;
     justify-content: center;
+    
     }
 
     button {
