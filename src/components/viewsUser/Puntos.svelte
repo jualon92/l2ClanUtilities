@@ -36,7 +36,7 @@
 
     @media screen and (min-width: 1000px) {
         .contenedor-usuario {
-                 width: 30%;
+                 width: 50%;
         }
     }
 </style>
