@@ -1,7 +1,9 @@
 <script>
-    import { ListaPersonas } from "../../stores";
+    import { ListaPersonas, PersonajeActual } from "../../stores";
     import ListaUser from "../viewsUser/ListaUser.svelte";
-    
+    import { get } from "svelte/store"
+     
+ 
 </script>
 
 
@@ -34,7 +36,7 @@
 
     @media screen and (min-width: 1000px) {
         .contenedor-usuario {
-            width: 60%;
+                 width: 30%;
         }
     }
 </style>

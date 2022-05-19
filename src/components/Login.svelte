@@ -2,19 +2,24 @@
     import { auth, db } from "../firebase";
     import LogTab from "./LogTab.svelte";
     import { onAuthStateChanged } from "firebase/auth";
-    import { getFirestore, getDoc, doc } from "firebase/firestore";
+
     import { authState } from "rxfire/auth";
 
     import { onMount, onDestroy } from "svelte";
 
-    import { estaEnLogin, EsAdmin, Registrando } from "../stores";
+    import {
+        estaEnLogin,
+        EsAdmin,
+        Registrando,
+        PersonajeActual, ListaPersonas
+    } from "../stores";
     import { get } from "svelte/store";
     import { Body } from "svelte-body";
 
     import TablaUser from "./viewsUser/TablaUser.svelte";
     import TablaAdmin from "./viewsAdmin/TablaAdmin.svelte";
     import Registrarse from "./Registrarse.svelte";
-
+    import { getDataByMail, getRol } from "../db";
     let user = authState(auth);
     $: rol = "";
 
@@ -42,30 +47,43 @@
         }
     };
 
-    const getRol = async (email) => {
-        const docuRef = doc(db, `usuarios/${email}`);
-        const docSnap = await getDoc(docuRef);
-        if (docSnap.exists()) {
-            const rol = docSnap.data().rol;
-            return rol;
-        } else {
-            // doc.data() will be undefined in this case
-            console.log("No such document!");
-        }
-    };
+    const getListaOrdenada = (datosUser) => {
+        const nombreActual = get(PersonajeActual) 
+        let listaUsuarios = $ListaPersonas
+ 
+        let listaSinEle = listaUsuarios.filter( ele => ele.nombrePersona !== nombreActual)
+ 
+        return [datosUser, ... listaSinEle]
+ 
+      
+    }
+
+   
 
     onAuthStateChanged(auth, async (user) => {
         if (user) {
-            console.log("data usuario : ", user.email);
+            console.log("data usuario : ", user);
 
             activo = true;
             estaEnLogin.set(false);
             //  console.log(get(estaEnLogin))
+ 
+            //preguntar si es admin, si lo es, recordarlo
             rol = await getRol(user.email);
-
             const tienePoderes = rol == "admin";
             EsAdmin.set(tienePoderes);
             console.log("es admin?: ", get(EsAdmin));
+
+
+            //obtener datos de usuario segun el mail ingreso
+            const datosUser = await getDataByMail(user.email);
+            //recordar el nombre del personaje del usuario en la sesion
+            PersonajeActual.set(datosUser.nombrePersona)
+            console.log("pj actual", get(PersonajeActual))
+
+            //setear la lista con el nombre de su personaje primero
+            ListaPersonas.set(getListaOrdenada(datosUser)) 
+
         } else {
             console.log("delog");
             activo = false;
@@ -81,7 +99,7 @@
     });
 </script>
 
-<section >
+<section>
     {#if $EsAdmin === false && $user}
         <TablaUser />
     {:else if $EsAdmin && $user}
@@ -108,7 +126,6 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-         
         }
     }
 

@@ -5,10 +5,10 @@
  
         createUserWithEmailAndPassword,
     } from "firebase/auth";
-    import { ListaPersonas, Registrando} from "../stores";
+    import { ListaPersonas, Registrando, PersonajeActual} from "../stores";
     import { get } from "svelte/store";
     import { Body } from "svelte-body";
-
+    import { addNameToDb} from "./../db"
     let emailRegistro = "";
     let passwordRegistro = "";
     let nombrePJ = "";
@@ -40,7 +40,7 @@
                 console.log("user creado", userCredential.user);
                 window.localStorage.setItem("logeando", "true");
                 console.log(nombrePJ);
-                const nuevaPersona = { nombrePersona: nombrePJ, puntos: 0 };
+                const nuevaPersona = { nombrePersona: nombrePJ, puntos: 0, email:emailRegistro };
 
                 if (!nombreYaExiste(nombrePJ)) {
                     //si no existe nombre agregarlo
@@ -49,7 +49,9 @@
                         return [...listaActual, nuevaPersona];
                     });
 
-                    addNameToDb(nombrePJ); //agregar a db
+                    addNameToDb(nombrePJ, emailRegistro); //agregar a db
+                    PersonajeActual.set(nombrePJ)
+                    console.log("personaje actual es : ", get(PersonajeActual))
                 } else {
                     console.warn("ya existe ese nombre");
                 }

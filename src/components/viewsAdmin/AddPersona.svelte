@@ -1,5 +1,5 @@
 <script>
-    import { ListaPersonas, estaEnLogin, EsAdmin } from "../../stores";
+    import { ListaPersonas, estaEnLogin, EsAdmin, PersonajeActual } from "../../stores";
     import { addDoc, collection } from "firebase/firestore";
     import { db, auth } from "../../firebase";
     import { get } from "svelte/store";
@@ -62,7 +62,7 @@
 		ListaPersonas.set(lista)
 		console.log(get(ListaPersonas))
 
-
+        PersonajeActual.set("")
 
         EsAdmin.set(null);
         await auth.signOut();
