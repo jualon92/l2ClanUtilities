@@ -28,7 +28,7 @@
         text-align: center;
     }
 
-    .tabla-usuario{
+    .contenedor-usuario{
         box-shadow: 0px 0px 36px 15px rgba(0, 0, 0, 0.28);
     }
 
