@@ -1,9 +1,9 @@
 <script>
-    import { ListaPersonas, estaEnLogin, EsAdmin } from "../stores.js";
+    import { ListaPersonas, estaEnLogin, EsAdmin } from "../../stores";
     import { addDoc, collection } from "firebase/firestore";
-    import { db, auth } from "../firebase";
+    import { db, auth } from "../../firebase";
     import { get } from "svelte/store";
-    import { getAll } from "../db"
+    import { getAll } from "../../db"
     const aparecerInput = false;
     let nombrePersona = "";
     let puntos = 0;

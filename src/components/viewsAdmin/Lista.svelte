@@ -1,18 +1,14 @@
 <script>
-    import { ListaPersonas , EsAdmin} from "../stores";
+    import { ListaPersonas , EsAdmin} from "../../stores";
     import { get, writable } from "svelte/store";
     import { onMount } from "svelte";
+    import {fly, scale} from "svelte/transition"
+   
+    
+    import { addPuntaje, deleteNombreDB } from "../../db.js";
+ 
     export let nombrePersona;
     export let puntos;
-    import { fade, scale } from "svelte/transition";
-    import { collection } from "firebase/firestore";
-    import { db } from "../firebase.js";
-    import { Body } from 'svelte-body';
-    
-    import { addPuntaje, deleteNombreDB } from "../db.js";
-  
-    import { getAll } from "../db"
-
    
     const borrarItem = async (nombre) => {
  

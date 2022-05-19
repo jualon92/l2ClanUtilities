@@ -1,12 +1,13 @@
 <script>
-import { ListaPersonas  } from "../stores";
-import ListaUser from "./ListaUser.svelte"
-import AddPersonaUser from "./AddPersonaUser.svelte"
+    import { ListaPersonas } from "../../stores";
+    import ListaUser from "../viewsUser/ListaUser.svelte";
+    
 </script>
- 
 
 
-<div class="contenedor table-responsive contenedor-usuario">
+
+
+<div class=" table-bordered contenedor table-responsive contenedor-usuario mt-5">
     <table class="table table-hover w-60 table-striped tabla-usuario  ">
         <thead>
             <tr>
@@ -21,11 +22,19 @@ import AddPersonaUser from "./AddPersonaUser.svelte"
         </tbody>
     </table>
 </div>
-<AddPersonaUser />
-
 
 <style>
-    tr{
+    tr {
         text-align: center;
+    }
+
+    .tabla-usuario{
+        box-shadow: 0px 0px 36px 15px rgba(0, 0, 0, 0.28);
+    }
+
+    @media screen and (min-width: 1000px) {
+        .contenedor-usuario {
+            width: 60%;
+        }
     }
 </style>

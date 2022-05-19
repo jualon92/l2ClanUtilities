@@ -1,15 +1,10 @@
 <script>
-    import { ListaPersonas , EsAdmin} from "../stores";
-    import { get, writable } from "svelte/store";
+  
     import { onMount } from "svelte";
     export let nombrePersona;
     export let puntos;
     import { fade, scale } from "svelte/transition";
-    import { collection } from "firebase/firestore";
-    import { db } from "../firebase.js";
-    import { Body } from 'svelte-body';
-    import { getAll } from "../db"
-    import { addPuntaje, deleteNombreDB } from "../db.js";
+    
   
     
     onMount( async () => {
@@ -43,6 +38,7 @@
         text-align: center;
     }
 
+    
 
     
 </style>

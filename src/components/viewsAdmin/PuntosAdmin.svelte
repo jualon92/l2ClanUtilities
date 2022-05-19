@@ -1,12 +1,11 @@
 <script>
-    import { ListaPersonas  } from "../stores";
-    import Lista from "./Lista.svelte"
-    import AddPersona from "./AddPersona.svelte"
+    import { ListaPersonas } from "../../stores";
+    import Lista from "../viewsAdmin/Lista.svelte";
+    import  AddPersona  from "../viewsAdmin/AddPersona.svelte"
 </script>
 
-
-
-<div class="contenedor table-responsive	 ">
+ 
+<div class="table-bordered contenedor table-responsive	tabla-admin ">
     <table class="table table-hover w-60 table-striped   ">
         <thead>
             <tr>
@@ -23,4 +22,18 @@
         </tbody>
     </table>
 </div>
-<AddPersona />
+<AddPersona/> 
+
+<style>
+    tr {
+        text-align: center;
+    }
+
+    .tabla-admin{
+        box-shadow: 0px 0px 36px 15px rgba(0, 0, 0, 0.28);
+        margin:0 auto;
+        width:60%;
+    }
+    
+    
+</style>

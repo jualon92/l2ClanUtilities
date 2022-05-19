@@ -1,30 +1,15 @@
 <script>
 	import { onMount } from "svelte";
-	import { fade, scale } from "svelte/transition";
-	import Lista from "./components/Lista.svelte";
+ 
+ 
 	import { ListaPersonas, estaEnLogin } from "./stores.js";
 	import { get} from "svelte/store"
-	import AddPersona from "./components/AddPersona.svelte";
+ 
 	import Login from "./components/Login.svelte"
 	 
- 
-	import { db } from "./firebase.js";
-	import {
-		addDoc,
-		updateDoc,
-		deleteDoc,
-		collection,
-		getFirestore,
-		getDoc,
-		query,orderBy,getDocs
-	} from "firebase/firestore";
-	import { startWith } from "rxjs/operators";
-    import { collectionData } from "rxfire/firestore";
 	import { getAll } from "./db"
-	import { Body } from 'svelte-body';
-	let nombre = "juan";
-	let name = "matias";
-
+ 
+ 
 	
 	/*
     const actividadesRef = collection(db, "rank"); //ini, refe
@@ -75,7 +60,7 @@
 	main {
  
 		text-align: center;
-		padding: 1em;
+	 
 		max-width: 240px;
 		margin: 0 auto;
 	}
