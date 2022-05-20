@@ -6,7 +6,7 @@ import Puntos from "../viewsUser/Puntos.svelte"
 import Actividades from "../Actividades.svelte"
 import Pedidos from "../Pedidos.svelte"
 import Informacion from "../Informacion.svelte"
-
+ 
 
 const arrayElecciones = [{component:Puntos},{component:Actividades}, {component:Pedidos}, {component:Informacion} ]
 
@@ -17,7 +17,7 @@ let seleccion =  arrayElecciones[0]
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary mb-5 ">
     <div class="container-fluid">
-      <a class="navbar-brand" href={null}>Logo</a>
+      <a class="navbar-brand" href={null}> Logo </a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -56,7 +56,8 @@ let seleccion =  arrayElecciones[0]
     
    
     .nav-interna{
-        gap:40px;
+        gap:100px;
+        
     }
 
     .navbar-brand{
