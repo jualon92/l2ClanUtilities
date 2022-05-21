@@ -1,5 +1,5 @@
 <script>
-    import { fly, scale, fade } from "svelte/transition";
+    import { fly, scale, fade, slide } from "svelte/transition";
     const tallum = {
         nombre: "Tallum",
         robe: [
@@ -13,22 +13,35 @@
         light: [
             { nombre: "Tallum Sombrero", precio: "555" },
             { nombre: "Tallum Remera", precio: "111" },
-        ]
+        ],
     };
-    const blueWolf = { nombre: "Blue Wolf", 
-    robe: [
-            { nombre: "Blue Wolf Wizard Hat", precio: "111" },
-            { nombre: "Blue Wolf Robe", precio: "333" },
+    const blueWolf = {
+        nombre: "Blue Wolf",
+        robe: [
+            { nombre: "Blue Wolf Helmet", precio: "111", imagenURL:"https://lineage.pmfun.com/data/img/armor_leather_helmet_i00_0.png"},
+            { nombre: "Blue Wolf Tunic", precio: "333", imagenURL:"https://lineage.pmfun.com/data/img/armor_t70_u_i00_0.png" },
+            { nombre: "Blue Wolf Stockings", precio: "333", imagenURL:"https://lineage.pmfun.com/data/img/armor_t70_l_i00_0.png" },      
+            { nombre: "Blue Wolf Gloves - Robe", precio: "333", imagenURL:"https://lineage.pmfun.com/data/img/armor_t70_g_i00_0.png" },
+            { nombre: "Blue Wolf Boots - Robe", precio: "333", imagenURL:"https://lineage.pmfun.com/data/img/armor_t70_b_i00_0.png" },
         ],
         heavy: [
-            { nombre: "Blue Wolf Helmet", precio: "66 " },
-            { nombre: "Blue Wolf breastplate", precio: "234" },
+            { nombre: "Blue Wolf Helmet", precio: "66 ", imagenURL:"https://lineage.pmfun.com/data/img/armor_leather_helmet_i00_0.png" },
+            { nombre: "Blue Wolf breastplate", precio: "234", imagenURL:"https://lineage.pmfun.com/data/img/armor_t68_u_i00_0.png" },
+            { nombre: " Blue Wolf Gaiters", precio: "234", imagenURL:"https://lineage.pmfun.com/data/img/armor_t68_l_i00_0.png" },
+            { nombre: " Blue Wolf Gloves - Heavy armor", precio: "234", imagenURL:"https://lineage.pmfun.com/data/img/armor_t68_g_i00_0.png" },
+            { nombre: " Blue Wolf Boots - Heavy armor", precio: "234", imagenURL:"https://lineage.pmfun.com/data/img/armor_t68_b_i00_0.png" },
         ],
         light: [
-            { nombre: "Blue Wolf Sombrero", precio: "123" },
-            { nombre: "Blue Wolf Remera", precio: "321" },
-        ]  };
-    const doom = { nombre: "Doom", robe: [
+            { nombre: " Blue Wolf Helmet", precio: "321", imagenURL:"https://lineage.pmfun.com/data/img/armor_leather_helmet_i00_0.png" },
+            { nombre: " Blue Wolf Leather Armor", precio: "123", imagenURL:"https://lineage.pmfun.com/data/img/armor_t69_ul_i00_0.png" },
+            { nombre: " Blue Wolf Gloves - Light armor", precio: "321", imagenURL:"https://lineage.pmfun.com/data/img/armor_t69_g_i00_0.png" },
+            { nombre: " Blue Wolf Boots - Light Armor", precio: "321", imagenURL:"https://lineage.pmfun.com/data/img/armor_t69_b_i00_0.png" },
+            
+        ],
+    };
+    const doom = {
+        nombre: "Doom",
+        robe: [
             { nombre: "Doom Wizard Hat", precio: "111" },
             { nombre: "Doom Robe", precio: "333" },
         ],
@@ -39,10 +52,17 @@
         light: [
             { nombre: "Doom Sombrero", precio: "123" },
             { nombre: "Doom Remera", precio: "321" },
-        ] };
+        ],
+    };
     $: seleccion = "";
     $: seleccionTipo = "";
-   
+    $: seleccionTipoActual= "";
+
+    const getTipoAnterior = (seleccion) => {
+        if (seleccionTipoActual === "robe") return seleccion.robe
+        if (seleccionTipoActual === "light") return seleccion.light
+        if (seleccionTipoActual === "heavy") return seleccion.heavy
+    }
 </script>
 
 <div class="contenedor-pedidos">
@@ -53,97 +73,111 @@
 
         <li class="nav-item">
             <a
-            class="nav-link"
-            data-bs-toggle="tab"  
+                class="nav-link"
+                data-bs-toggle="tab"
                 href={3}
-                on:click|preventDefault={() => {seleccion = blueWolf, seleccionTipo = ""}}
-                >Blue Wolf</a
+                on:click|preventDefault={() => {
+                    (seleccion = blueWolf),  seleccionTipo = getTipoAnterior(seleccion) 
+                }}>Blue Wolf</a
             >
         </li>
 
         <li class="nav-item">
             <a
-                
                 href={2}
                 class="nav-link"
-                data-bs-toggle="tab"  
-                on:click|preventDefault={() => {seleccion = doom, seleccionTipo = ""}}>Doom</a
+                data-bs-toggle="tab"
+                on:click|preventDefault={() => {
+                    (seleccion = doom),  seleccionTipo = getTipoAnterior(seleccion) 
+                }}>Doom</a
             >
         </li>
         <li class="nav-item">
             <a
-            data-bs-toggle="tab"  
+                data-bs-toggle="tab"
                 class="nav-link "
                 href={4}
-                on:click|preventDefault={() => {seleccion = tallum, seleccionTipo = ""}}>Tallum</a
+                on:click|preventDefault={() => {
+                    (seleccion = tallum, seleccionTipo = getTipoAnterior(seleccion)) 
+                }}>Tallum</a
             >
         </li>
         <li class="nav-item">
             <a class="nav-link titulo " href="#">Joyeria</a>
         </li>
         <li class="nav-item">
-          
-            <a    data-bs-toggle="tab"   class="nav-link " href="5">Black Ore</a>
+            <a data-bs-toggle="tab" class="nav-link " href="5">Black Ore</a>
         </li>
     </ul>
 
     {#if seleccion}
         <div class="contenedor-item  " in:fade={{ duration: 300 }}>
             <h3 class="item-nombre">{seleccion.nombre}</h3>
-            <div class="tipo">
+            <div class="tipo nav nav-pills">
+                
                 <a
-                data-bs-toggle="tab" 
-                    class="nav-link robe"
+                    data-bs-toggle="tab"
+                    class=" nav-link robe"
                     href={1}
                     on:click|preventDefault={() =>
-                        (seleccionTipo = seleccion.robe)}>Robe</a
+                        (seleccionTipo = seleccion.robe, seleccionTipoActual = "robe")  }>Robe</a
                 >
+            
                 <a
-                data-bs-toggle="tab" 
+                    data-bs-toggle="tab"
                     class="nav-link robe"
                     href={2}
                     on:click|preventDefault={() =>
-                        (seleccionTipo = seleccion.heavy)}>Heavy</a
+                    
+                        (seleccionTipo = seleccion.heavy, seleccionTipoActual = "heavy")}>Heavy</a
                 >
                 <a
-                data-bs-toggle="tab" 
-                class="nav-link robe"
-                href={3}
-                on:click|preventDefault={() =>
-                    (seleccionTipo = seleccion.light)}>Light</a
-            >
+                    data-bs-toggle="tab"
+                    class="nav-link robe"
+                    href={3}
+                    on:click|preventDefault={() =>
+                        (seleccionTipo = seleccion.light, seleccionTipoActual = "light")}>Light</a
+                >
             </div>
          
-         
-
-        {#if seleccionTipo}
-            <table class="table table-hover table-striped ">
-                <thead>
-                    <tr>
-                        <th scope="col">Nombre</th>
-                        <th scope="col">Precio</th>
-                        <th scope="col">Accion</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {#each seleccionTipo as parte}
-                        <tr class="table-active">
-                            <th scope="row">{parte.nombre} </th>
-                            <td>{parte.precio} </td>
-                            <td
-                                ><button class="btn btn-primary">Pedir</button
-                                ></td
-                            >
+            {#if seleccionTipo}
+            
+            <table    class="table table-hover table-striped ">
+                    <thead>
+                        <tr>
+                            <th scope="col"></th>
+                            <th scope="col">Nombre</th>
+                            <th scope="col">Precio</th>
+                            <th scope="col">Accion</th>
                         </tr>
-                    {/each}
-                </tbody>
-            </table>
-        {/if}
-    </div>
+                    </thead>
+                   
+                    <tbody    >
+                        {#each seleccionTipo as parte }
+                        <slot>   
+                            <tr class="table-active"    >
+                                <td  ><img class="icon-item" src={parte.imagenURL} alt=""></td>
+                                <th scope="row">   <div class="texto">{parte.nombre}  </th>
+                                <td>{parte.precio} </td>
+                                <td
+                                    ><button class="btn btn-primary"
+                                        >Pedir</button
+                                    ></td
+                                >
+                            </tr>
+                        </slot> 
+                        {/each}
+                    </tbody>
+                </table>
+                
+            {/if}
+          
+        </div>
     {/if}
 </div>
 
 <style>
+ 
     thead,
     tbody {
         text-align: center;
@@ -152,15 +186,7 @@
     table {
         margin-top: 15px;
     }
-    .clasi {
-        display: flex;
-        flex-direction: row;
-    }
-    .parte {
-        border-bottom: 1px solid #ddd;
-        padding: 1rem;
-        width: 100% !important;
-    }
+   
     .nav-sets {
         width: 150px;
     }
@@ -189,10 +215,35 @@
     }
 
     @media screen and (min-width: 1000px) {
+        .texto{
+            display:inline;
+            
+        }
+        .icon-item{
+          
+        }
         .contenedor-pedidos {
             width: 70%;
             display: flex;
+            gap: 40px;
         }
     }
- 
+    @media (max-width: 1000px) {  /* mobile */
+        .contenedor-pedidos {
+            width: auto;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .tipo{
+            flex-wrap: nowrap;
+        }
+        .item-nombre{
+            text-align: center;
+        }
+        .contenedor-item {
+        width: 90%;
+    }
+    }
 </style>

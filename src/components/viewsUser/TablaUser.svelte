@@ -53,12 +53,14 @@ let seleccion =  arrayElecciones[0]
   <AddPersonaUser/> 
 
 <style>
-    
-   
+     @media screen and (min-width: 1000px) {
+          
     .nav-interna{
         gap:100px;
         
     }
+    }
+   
 
     .navbar-brand{
         margin-right: 40px;
