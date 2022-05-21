@@ -3,16 +3,25 @@
     const tallum = {
         nombre: "Tallum",
         robe: [
-            { nombre: "Tallum Wizard Hat", precio: "222" },
-            { nombre: "Tallum Robe", precio: "333" },
-        ],
-        heavy: [
-            { nombre: "Tallum Helmet", precio: "123" },
-            { nombre: "Tallum breastplate", precio: "321" },
+            { nombre: " Tallum Tunic", precio: "111", imagenURL:"https://lineage.pmfun.com/data/img/armor_t79_u_i00_0.png"},
+            { nombre: " Tallum Stockings", precio: "333", imagenURL:"https://lineage.pmfun.com/data/img/armor_t79_l_i00_0.png" },
+            { nombre: " Tallum Gloves - Robe", precio: "333", imagenURL:"https://lineage.pmfun.com/data/img/armor_t79_g_i00_0.png" },      
+            { nombre: "Tallum Boots - Robe", precio: "333", imagenURL:"https://lineage.pmfun.com/data/img/armor_t79_b_i00_0.png" },
+            { nombre: " Tallum Helm", precio: "333", imagenURL:"https://lineage.pmfun.com/data/img/armor_helmet_i00_0.png" },
         ],
         light: [
-            { nombre: "Tallum Sombrero", precio: "555" },
-            { nombre: "Tallum Remera", precio: "111" },
+            { nombre: " Tallum Leather Armor", precio: "111", imagenURL:"https://lineage.pmfun.com/data/img/armor_t78_ul_i00_0.png"},
+            { nombre: " Tallum Gloves - Light Armor", precio: "333", imagenURL:"https://lineage.pmfun.com/data/img/armor_t78_g_i00_0.png" },
+            { nombre: "  Tallum Boots - Light Armor", precio: "333", imagenURL:"https://lineage.pmfun.com/data/img/armor_t79_b_i00_0.png" },      
+            { nombre: " Tallum Helm", precio: "333", imagenURL:"https://lineage.pmfun.com/data/img/armor_t79_b_i00_0.png" },
+          
+        ],
+        heavy: [
+            { nombre: " Tallum Plate Armor", precio: "111", imagenURL:"https://lineage.pmfun.com/data/img/armor_t77_ul_i00_0.png"},
+            { nombre: " Tallum Gloves - Heavy Armor", precio: "333", imagenURL:"https://lineage.pmfun.com/data/img/armor_t77_ul_i00_0.png" },
+            { nombre: " Tallum Boots - Heavy Armor", precio: "333", imagenURL:"https://lineage.pmfun.com/data/img/armor_t77_b_i00_0.png" },      
+            { nombre: " Tallum Helm", precio: "333", imagenURL:"https://lineage.pmfun.com/data/img/armor_helmet_i00_0.png" },
+          
         ],
     };
     const blueWolf = {
@@ -42,16 +51,24 @@
     const doom = {
         nombre: "Doom",
         robe: [
-            { nombre: "Doom Wizard Hat", precio: "111" },
-            { nombre: "Doom Robe", precio: "333" },
-        ],
-        heavy: [
-            { nombre: "Doom  Helmet", precio: "66 " },
-            { nombre: "Doom breadsplate", precio: "234" },
+            { nombre: " Tunic Of Doom", precio: "111", imagenURL:"https://lineage.pmfun.com/data/img/armor_t73_u_i00_0.png"},
+            { nombre: " Stockings Of Doom", precio: "333", imagenURL:"https://lineage.pmfun.com/data/img/armor_t73_l_i00_0.png" },
+            { nombre: " Doom Gloves - Robe", precio: "333", imagenURL:"https://lineage.pmfun.com/data/img/armor_t73_g_i00_0.png" },      
+            { nombre: " Boots Of Doom - Robe", precio: "333", imagenURL:"https://lineage.pmfun.com/data/img/armor_t73_b_i00_0.png" },
+            { nombre: " Doom Helmet", precio: "333", imagenURL:"https://lineage.pmfun.com/data/img/armor_leather_helmet_i00_0.png" },
         ],
         light: [
-            { nombre: "Doom Sombrero", precio: "123" },
-            { nombre: "Doom Remera", precio: "321" },
+            { nombre: "Leather Armor Of Doom", precio: "111", imagenURL:"https://lineage.pmfun.com/data/img/armor_t72_ul_i00_0.png"},
+            { nombre: " Doom Gloves - Light Armor", precio: "333", imagenURL:"https://lineage.pmfun.com/data/img/armor_t72_g_i00_0.png" },
+            { nombre: " Boots Of Doom - Light Armor", precio: "333", imagenURL:"https://lineage.pmfun.com/data/img/armor_t72_b_i00_0.png" },      
+            { nombre: " Doom Helmet", precio: "333", imagenURL:"https://lineage.pmfun.com/data/img/armor_leather_helmet_i00_0.png" },
+        ],
+        heavy: [
+            { nombre: "Doom Plate Armor", precio: "111", imagenURL:"https://lineage.pmfun.com/data/img/armor_t71_ul_i00_0.png"},
+            { nombre: " Doom Gloves - Heavy Armor", precio: "333", imagenURL:"https://lineage.pmfun.com/data/img/armor_t71_g_i00_0.png" },
+            { nombre: "Boots Of Doom - Heavy Armor", precio: "333", imagenURL:"https://lineage.pmfun.com/data/img/armor_t71_b_i00_0.png" },      
+            { nombre: "Doom Helmet", precio: "333", imagenURL:"https://lineage.pmfun.com/data/img/armor_leather_helmet_i00_0.png" },
+            { nombre: "Doom Shield", precio: "333", imagenURL:"https://lineage.pmfun.com/data/img/shield_doom_shield_i00_0.png" },
         ],
     };
     $: seleccion = "";
