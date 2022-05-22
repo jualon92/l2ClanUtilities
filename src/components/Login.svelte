@@ -11,7 +11,7 @@
         estaEnLogin,
         EsAdmin,
         Registrando,
-        PersonajeActual, ListaPersonas, Puntaje
+        PersonajeActual, ListaPersonas, Puntaje, Pedidos
     } from "../stores";
     import { get } from "svelte/store";
     import { Body } from "svelte-body";
@@ -19,7 +19,7 @@
     import TablaUser from "./viewsUser/TablaUser.svelte";
     import TablaAdmin from "./viewsAdmin/TablaAdmin.svelte";
     import Registrarse from "./Registrarse.svelte";
-    import { getDataByMail, getRol, getDataByName, addPuntaje} from "../db";
+    import { getDataByMail, getRol, getDataByName, addPuntaje, getPedidos} from "../db";
     let user = authState(auth);
     $: rol = "";
 
@@ -30,6 +30,8 @@
         //  console.log("reg", p);
         estaLogeando();
         console.log("uups", $Registrando);
+        
+
     });
 
     const estaLogeando = () => {
@@ -89,6 +91,10 @@
             //podria pasarse el user entero a store y no de a partes
             const puntos = datosUser.puntos
             Puntaje.set(puntos)
+
+            //setear store pedidos
+            const pedidos = await getPedidos();
+            Pedidos.set(pedidos) 
         } else {
             console.log("delog");
             activo = false;

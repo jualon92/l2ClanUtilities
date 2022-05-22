@@ -14,3 +14,5 @@ export const Registrando = writable(false)
 export const PersonajeActual = writable("")
 
 export const Puntaje = writable("")
+
+export const Pedidos = writable([])

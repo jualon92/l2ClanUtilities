@@ -1,11 +1,16 @@
 <script>
     import { fly, scale, fade, slide } from "svelte/transition";
-    import { addPuntaje, getDataByMail, getDataByName } from "../db";
-    import { PersonajeActual, Puntaje, ListaPersonas } from "../stores";
+    import { addPedido, addPuntaje, getDataByMail, getDataByName } from "../db";
+    import {
+        PersonajeActual,
+        Puntaje,
+        ListaPersonas,
+        Pedidos,
+    } from "../stores";
     import { onMount } from "svelte";
- 
-    
-    let puntosRequest = ""
+
+    let mostrarHistorial = false;
+    let puntosRequest = "";
     const tallum = {
         nombre: "Tallum",
         robe: [
@@ -17,25 +22,25 @@
             },
             {
                 nombre: " Tallum Stockings",
-                precio: "333",
+                precio: "2",
                 imagenURL:
                     "https://lineage.pmfun.com/data/img/armor_t79_l_i00_0.png",
             },
             {
                 nombre: " Tallum Gloves - Robe",
-                precio: "333",
+                precio: "3",
                 imagenURL:
                     "https://lineage.pmfun.com/data/img/armor_t79_g_i00_0.png",
             },
             {
                 nombre: "Tallum Boots - Robe",
-                precio: "333",
+                precio: "4",
                 imagenURL:
                     "https://lineage.pmfun.com/data/img/armor_t79_b_i00_0.png",
             },
             {
                 nombre: " Tallum Helm",
-                precio: "333",
+                precio: "5",
                 imagenURL:
                     "https://lineage.pmfun.com/data/img/armor_helmet_i00_0.png",
             },
@@ -43,19 +48,19 @@
         light: [
             {
                 nombre: " Tallum Leather Armor",
-                precio: "111",
+                precio: "1",
                 imagenURL:
                     "https://lineage.pmfun.com/data/img/armor_t78_ul_i00_0.png",
             },
             {
                 nombre: " Tallum Gloves - Light Armor",
-                precio: "333",
+                precio: "2",
                 imagenURL:
                     "https://lineage.pmfun.com/data/img/armor_t78_g_i00_0.png",
             },
             {
                 nombre: "  Tallum Boots - Light Armor",
-                precio: "333",
+                precio: "3",
                 imagenURL:
                     "https://lineage.pmfun.com/data/img/armor_t79_b_i00_0.png",
             },
@@ -302,38 +307,56 @@
     };
 
     const procederCompra = async () => {
-      
         //chequear si tiene los puntos necesario
-        puntosRequest = await getDataByName($PersonajeActual)
-        let puntos = puntosRequest.puntos
-        console.log("puntos actuales = ", puntos)
-        if (puntos - partePedida.precio >= 0){ //continuar compra
-            const puntosAEnviar = puntos - partePedida.precio
-            
-            //firebase
-            addPuntaje($PersonajeActual,puntosAEnviar) 
-            
+        puntosRequest = await getDataByName($PersonajeActual);
+        let puntos = puntosRequest.puntos;
+        console.log("puntos actuales = ", puntos);
+        if (puntos - partePedida.precio >= 0) {
+            //continuar compra
+            const puntosAEnviar = puntos - partePedida.precio;
+
+            //firebase cambiar puntaje
+            addPuntaje($PersonajeActual, puntosAEnviar);
+
             //clientside
-            Puntaje.set(puntos - partePedida.precio)
+            Puntaje.set(puntos - partePedida.precio);
 
             //alerta pedido realizado
-            let myAlert = document.querySelector('.toast');
+            let myAlert = document.querySelector(".toast");
             let bsAlert = new bootstrap.Toast(myAlert);
             bsAlert.show();
 
             //actualizar pares personas-puntos
-            let index = $ListaPersonas.findIndex( ele => ele.nombrePersona == $PersonajeActual)
-            $ListaPersonas[index].puntos = $Puntaje
-            console.log( $ListaPersonas[index].puntos )
-        }
-         
-    }
-</script>
- 
+            let index = $ListaPersonas.findIndex(
+                (ele) => ele.nombrePersona == $PersonajeActual
+            );
+            $ListaPersonas[index].puntos = $Puntaje;
+            console.log($ListaPersonas[index].puntos);
 
+            mostrarPedido = false;
+
+            //setear pedido nuevo en firebase
+            addPedido($PersonajeActual, partePedida.nombre);
+            //setear pedido en cliente
+            const listaNueva = [
+                ...$Pedidos,
+                { personaje: $PersonajeActual, item: partePedida.nombre, etapa:"pendiente" },
+            ];
+            Pedidos.set(listaNueva);
+        }
+    };
+</script>
+
+<div class="pedidos-actuales mb-3">
+    <button
+        on:click|preventDefault={() => (mostrarHistorial = true)}
+        class="btn btn-info"
+    >
+        Estado Pedidos
+    </button>
+</div>
 
 <div class="contenedor-pedidos">
-
     <ul class="nav nav-pills flex-column nav-sets ">
         <li class="nav-item">
             <a class="nav-link titulo " href={null}>Armor</a>
@@ -347,7 +370,7 @@
                 on:click|preventDefault={() => {
                     (seleccion = blueWolf),
                         (seleccionTipo = getTipoAnterior(seleccion)),
-                        (mostrarPedido = false);
+                        (mostrarPedido = false), (mostrarHistorial=false);
                 }}>Blue Wolf</a
             >
         </li>
@@ -360,7 +383,7 @@
                 on:click|preventDefault={() => {
                     (seleccion = doom),
                         (seleccionTipo = getTipoAnterior(seleccion)),
-                        (mostrarPedido = false);
+                        (mostrarPedido = false), (mostrarHistorial=false);
                 }}>Doom</a
             >
         </li>
@@ -372,7 +395,7 @@
                 on:click|preventDefault={() => {
                     (seleccion = tallum),
                         (seleccionTipo = getTipoAnterior(seleccion)),
-                        (mostrarPedido = false);
+                        (mostrarPedido = false), (mostrarHistorial=false);
                 }}>Tallum</a
             >
         </li>
@@ -384,30 +407,67 @@
         </li>
     </ul>
 
-    {#if mostrarPedido}
-        <div class="contenedor-infoPedido" in:fade={{duration:400}}>
-
-         
-
-            <div class="form-group">  
-            <fieldset>
-                <label class="form-label mt-4" for="readOnlyInput">Pedido</label>
-                <input class="form-control " id="readOnlyInput" type="text" placeholder={partePedida.nombre}  readonly >
-            
-                <label class="form-label mt-4" for="readOnlyInput">Precio</label>
-                <input class="form-control" id="readOnlyInput" type="text" placeholder={partePedida.precio}  readonly >
-            
-                <label class="form-label mt-4" for="readOnlyInput">Puntos disponibles</label>
-                <input class="form-control" id="readOnlyInput" type="text" placeholder={$Puntaje}  readonly >
-            
-                <label class="form-label mt-4" for="readOnlyInput">Puntos restantes</label>
-                <input class:is-invalid={ $Puntaje - partePedida.precio < 0} class:is-valid={$Puntaje - partePedida.precio > 0} class="form-control" id="readOnlyInput" type="text" placeholder={$Puntaje - partePedida.precio < 0 ? "Sin fondos suf" : $Puntaje - partePedida.precio} readonly >
-            
+    {#if mostrarHistorial}
+        <div class="pedidos-container">
+            {#each $Pedidos as pedido}
+                <div class="pedido">{pedido.item} - {pedido.personaje} - {pedido.etapa}</div>
                 
-            </fieldset>
-          
+            {/each}
         </div>
-         <!--  
+    {:else if mostrarPedido}
+        <div class="contenedor-infoPedido" in:fade={{ duration: 400 }}>
+            <div class="form-group">
+                <fieldset>
+                    <label class="form-label mt-4" for="readOnlyInput"
+                        >Pedido</label
+                    >
+                    <input
+                        class="form-control "
+                        id="readOnlyInput"
+                        type="text"
+                        placeholder={partePedida.nombre}
+                        readonly
+                    />
+
+                    <label class="form-label mt-4" for="readOnlyInput"
+                        >Precio</label
+                    >
+                    <input
+                        class="form-control"
+                        id="readOnlyInput"
+                        type="text"
+                        placeholder={partePedida.precio}
+                        readonly
+                    />
+
+                    <label class="form-label mt-4" for="readOnlyInput"
+                        >Puntos disponibles</label
+                    >
+                    <input
+                        class="form-control"
+                        id="readOnlyInput"
+                        type="text"
+                        placeholder={$Puntaje}
+                        readonly
+                    />
+
+                    <label class="form-label mt-4" for="readOnlyInput"
+                        >Puntos restantes</label
+                    >
+                    <input
+                        class:is-invalid={$Puntaje - partePedida.precio < 0}
+                        class:is-valid={$Puntaje - partePedida.precio > 0}
+                        class="form-control"
+                        id="readOnlyInput"
+                        type="text"
+                        placeholder={$Puntaje - partePedida.precio < 0
+                            ? "Sin fondos suf"
+                            : $Puntaje - partePedida.precio}
+                        readonly
+                    />
+                </fieldset>
+            </div>
+            <!--  
             <div class="pedido-info">Pedido: {partePedida.nombre}</div>
             <div class="pedido-info">Precio: {partePedida.precio}</div>
             <div class="pedido-info">Mis puntos: {$Puntaje}</div>
@@ -419,14 +479,17 @@
             </div>
             -->
             <div class="botonera-pedido">
-                <button class="btn btn-primary" on:click={ () => mostrarPedido = false}>Volver atras</button>
+                <button
+                    class="btn btn-primary"
+                    on:click={() => (mostrarPedido = false)}
+                    >Volver atras</button
+                >
                 <button
                     class="btn btn-primary btn-comprar"
                     class:disabled={resultadoTotal() <= 0}
                     on:click={procederCompra}>Confirmar</button
                 >
             </div>
- 
         </div>
     {:else if seleccion}
         <div class="contenedor-item  " in:fade={{ duration: 300 }}>
@@ -510,28 +573,39 @@
 </div>
 
 <div class="toast-container position-absolute  top-0 end-0  p-4">
-    
- 
     <div class="toast  " role="alert" aria-live="assertive" aria-atomic="true">
         <div class="toast-header">
-        <!--    <img src="..." class="rounded me-2 " alt="..."> -->
-          <strong class="me-auto">Pochoclin</strong>
-          <small>1 min ago</small>
-          <button type="button" class="btn-close ms-2 mb-1" data-bs-dismiss="toast" aria-label="Close"></button>
-      
-          <span aria-hidden="true"></span>
-          </div>
-        <div class="toast-body ">
-          Pedido realizado!
-        </div>
-      </div>
-    </div>
+            <!--    <img src="..." class="rounded me-2 " alt="..."> -->
+            <strong class="me-auto">Pochoclin</strong>
+            <small>1 min ago</small>
+            <button
+                type="button"
+                class="btn-close ms-2 mb-1"
+                data-bs-dismiss="toast"
+                aria-label="Close"
+            />
 
+            <span aria-hidden="true" />
+        </div>
+        <div class="toast-body ">Pedido realizado!</div>
+    </div>
+</div>
 
 <style>
-    .toast-container{
-        padding-top:10%!important;
+    .pedidos-container{
+        align-self: center;
     }
+    .pedidos-actuales {
+        width: 70%;
+    }
+    .toast-container {
+        padding-top: 6% !important;
+    }
+    @media (max-width: 1000px) {
+        .toast {
+        }
+    }
+
     thead,
     tbody {
         text-align: center;
@@ -599,8 +673,8 @@
             width: 90%;
         }
     }
-    ::placeholder{
-        color:black;
+    ::placeholder {
+        color: black;
     }
     .pedido-info {
         border-bottom-style: groove;

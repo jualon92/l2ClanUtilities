@@ -16,7 +16,7 @@ import {
 const actividadesRef = collection(db, "rank"); //ini, refe
 //const query = db.collection("actividades").where("uid", "==", uid).orderBy("created")
 
-
+const pedidosRef = collection(db, "pedidos");
 
 
  //GET
@@ -79,6 +79,19 @@ export const getAll = async () => {
         return lista
 }
 
+export const getPedidos = async () => {
+    const querySnapshot = await getDocs(pedidosRef);
+        let lista = []
+        querySnapshot.forEach((doc) => {
+            // doc.data() is never undefined for query doc snapshots
+            //console.log(doc.id, " => ", doc.data());
+            lista = [...lista, doc.data()]
+        });
+        return lista
+}
+
+
+
 
 export const getRol = async (email) => {
     const docuRef = doc(db, `usuarios/${email}`);
@@ -104,7 +117,13 @@ await addDoc(actividadesRef, {
     email: email
 });
 
- 
+export const addPedido = async (personaje,item) =>
+await addDoc(pedidosRef, {
+    personaje:personaje,
+    item:item,
+    etapa:"pendiente"
+});
+
 
  
 
