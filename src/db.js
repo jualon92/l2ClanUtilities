@@ -35,6 +35,20 @@ export const getDataByMail = async (email) => {
 };
 
 
+export const getDataByName = async (name) => {
+    const q = query(actividadesRef, where("nombrePersona", "==", name));
+    const querySnapshot = await getDocs(q);
+    let data = null
+    querySnapshot.forEach((doc) => {
+        // doc.data() is never undefined for query doc snapshots
+        console.log(doc.id, " => ", doc.data());
+        data = doc.data() 
+    });
+    return data
+};
+
+ 
+
 const getIdByName = async (nombre) => {
     const q = query(
         actividadesRef,

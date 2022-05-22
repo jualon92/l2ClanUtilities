@@ -28,7 +28,7 @@
     };
 </script>
  
-<div class="d-flex justify-content-end mt-3 btn-salir">
+<div class="d-flex justify-content-end  btn-salir">
     <button
         class="btn btn-primary btn-lg p2"
         on:click={delogear}>Salir</button
@@ -40,5 +40,5 @@
         border-radius: 6px;
     }
  
- 
+    .btn-salir{margin-top:15%;}
 </style>

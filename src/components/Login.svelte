@@ -11,7 +11,7 @@
         estaEnLogin,
         EsAdmin,
         Registrando,
-        PersonajeActual, ListaPersonas
+        PersonajeActual, ListaPersonas, Puntaje
     } from "../stores";
     import { get } from "svelte/store";
     import { Body } from "svelte-body";
@@ -19,7 +19,7 @@
     import TablaUser from "./viewsUser/TablaUser.svelte";
     import TablaAdmin from "./viewsAdmin/TablaAdmin.svelte";
     import Registrarse from "./Registrarse.svelte";
-    import { getDataByMail, getRol } from "../db";
+    import { getDataByMail, getRol, getDataByName, addPuntaje} from "../db";
     let user = authState(auth);
     $: rol = "";
 
@@ -78,12 +78,17 @@
             //obtener datos de usuario segun el mail ingreso
             const datosUser = await getDataByMail(user.email);
             //recordar el nombre del personaje del usuario en la sesion
+            
             PersonajeActual.set(datosUser.nombrePersona)
             console.log("pj actual", get(PersonajeActual))
 
             //setear la lista con el nombre de su personaje primero
             ListaPersonas.set(getListaOrdenada(datosUser)) 
-
+            
+            
+            //podria pasarse el user entero a store y no de a partes
+            const puntos = datosUser.puntos
+            Puntaje.set(puntos)
         } else {
             console.log("delog");
             activo = false;
