@@ -3,7 +3,7 @@
     import { addPuntaje, getDataByMail, getDataByName } from "../db";
     import { PersonajeActual, Puntaje, ListaPersonas } from "../stores";
     import { onMount } from "svelte";
-import { limitToLast } from "firebase/firestore";
+ 
     
     let puntosRequest = ""
     const tallum = {
@@ -320,6 +320,8 @@ import { limitToLast } from "firebase/firestore";
             let myAlert = document.querySelector('.toast');
             let bsAlert = new bootstrap.Toast(myAlert);
             bsAlert.show();
+
+            //actualizar pares personas-puntos
             let index = $ListaPersonas.findIndex( ele => ele.nombrePersona == $PersonajeActual)
             $ListaPersonas[index].puntos = $Puntaje
             console.log( $ListaPersonas[index].puntos )
@@ -383,7 +385,7 @@ import { limitToLast } from "firebase/firestore";
     </ul>
 
     {#if mostrarPedido}
-        <div class="contenedor-infoPedido">
+        <div class="contenedor-infoPedido" in:fade={{duration:400}}>
 
          
 
@@ -417,7 +419,7 @@ import { limitToLast } from "firebase/firestore";
             </div>
             -->
             <div class="botonera-pedido">
-                <button class="btn btn-primary">Volver atras</button>
+                <button class="btn btn-primary" on:click={ () => mostrarPedido = false}>Volver atras</button>
                 <button
                     class="btn btn-primary btn-comprar"
                     class:disabled={resultadoTotal() <= 0}
