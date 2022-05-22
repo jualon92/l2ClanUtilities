@@ -1,7 +1,7 @@
 <script>
     import { fly, scale, fade, slide } from "svelte/transition";
     import { addPuntaje, getDataByMail, getDataByName } from "../db";
-    import { PersonajeActual, Puntaje } from "../stores";
+    import { PersonajeActual, Puntaje, ListaPersonas } from "../stores";
     import { onMount } from "svelte";
 import { limitToLast } from "firebase/firestore";
     
@@ -320,7 +320,9 @@ import { limitToLast } from "firebase/firestore";
             let myAlert = document.querySelector('.toast');
             let bsAlert = new bootstrap.Toast(myAlert);
             bsAlert.show();
-    
+            let index = $ListaPersonas.findIndex( ele => ele.nombrePersona == $PersonajeActual)
+            $ListaPersonas[index].puntos = $Puntaje
+            console.log( $ListaPersonas[index].puntos )
         }
          
     }
@@ -418,7 +420,7 @@ import { limitToLast } from "firebase/firestore";
                 <button class="btn btn-primary">Volver atras</button>
                 <button
                     class="btn btn-primary btn-comprar"
-                    class:disabled={resultadoTotal() < 0}
+                    class:disabled={resultadoTotal() <= 0}
                     on:click={procederCompra}>Confirmar</button
                 >
             </div>
