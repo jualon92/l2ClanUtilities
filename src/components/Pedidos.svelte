@@ -352,7 +352,7 @@
 
 
  
-<div class="pedidos-actuales mb-3">
+<div class="pedidos-actuales mb-3"  >
     <button
         on:click|preventDefault={() => (mostrarHistorial = true)}
         class="btn btn-info"
@@ -413,7 +413,7 @@
     </ul>
 
     {#if mostrarHistorial}
-    <table class="table table-hover table-responsive ">
+    <table class="table table-hover table-responsive " in:fade={{duration:500}}>
         <thead>
           <tr>
            
