@@ -340,13 +340,18 @@
             //setear pedido en cliente
             const listaNueva = [
                 ...$Pedidos,
-                { personaje: $PersonajeActual, item: partePedida.nombre, etapa:"pendiente" },
+                { personaje: $PersonajeActual, item: partePedida.nombre },
             ];
             Pedidos.set(listaNueva);
+
+
+            mostrarHistorial = true
         }
     };
-</script>
+</script> 
 
+
+ 
 <div class="pedidos-actuales mb-3">
     <button
         on:click|preventDefault={() => (mostrarHistorial = true)}
@@ -370,7 +375,7 @@
                 on:click|preventDefault={() => {
                     (seleccion = blueWolf),
                         (seleccionTipo = getTipoAnterior(seleccion)),
-                        (mostrarPedido = false), (mostrarHistorial=false);
+                        (mostrarPedido = false), (mostrarHistorial=false) ;
                 }}>Blue Wolf</a
             >
         </li>
@@ -408,12 +413,29 @@
     </ul>
 
     {#if mostrarHistorial}
-        <div class="pedidos-container">
+    <table class="table table-hover table-responsive ">
+        <thead>
+          <tr>
+           
+            <th scope="col">Pedido</th>
+            <th scope="col">Personaje</th>
+            <th scope="col">Estado</th>
+          </tr>
+        </thead>
+        <tbody> 
             {#each $Pedidos as pedido}
-                <div class="pedido">{pedido.item} - {pedido.personaje} - {pedido.etapa}</div>
-                
+                   <tr class="table-active">
+                    <th scope="row">{pedido.item} </th>
+                    <td>{pedido.personaje}</td>
+                    <td> <button class="badge  bg-success  badge-estado btn-lg rounded-pill table-striped ">{pedido.etapa}</button> </td>
+                  
+                  </tr>
             {/each}
-        </div>
+        
+      
+    </tbody>
+</table>
+ 
     {:else if mostrarPedido}
         <div class="contenedor-infoPedido" in:fade={{ duration: 400 }}>
             <div class="form-group">
@@ -558,7 +580,7 @@
                                             class="btn btn-primary"
                                             on:click|preventDefault={async () => (
                                                 (mostrarPedido = true),
-                                                (partePedida = parte)
+                                                (partePedida = parte) 
                                             )}>Pedir</button
                                         ></td
                                     >
@@ -570,7 +592,7 @@
             {/if}
         </div>
     {/if}
-</div>
+ 
 
 <div class="toast-container position-absolute  top-0 end-0  p-4">
     <div class="toast  " role="alert" aria-live="assertive" aria-atomic="true">
@@ -590,8 +612,11 @@
         <div class="toast-body ">Pedido realizado!</div>
     </div>
 </div>
-
+</div>
 <style>
+    .badge-estado{
+        padding: 0.5rem 1rem!important;
+    }
     .pedidos-container{
         align-self: center;
     }
@@ -615,8 +640,9 @@
         margin-top: 15px;
     }
 
+
     .nav-sets {
-        width: 150px;
+        min-width: 150px;
     }
     .tipo {
         display: flex;
@@ -653,6 +679,8 @@
             display: flex;
             gap: 40px;
         }
+
+        
     }
     @media (max-width: 1000px) {
         /* mobile */
@@ -671,6 +699,17 @@
         }
         .contenedor-item {
             width: 90%;
+        }
+
+        table{
+             margin-top: 15px;
+        }
+
+        .pedidos-actuales{
+            display:flex;
+            width: 100%;
+    justify-content: center;
+    
         }
     }
     ::placeholder {

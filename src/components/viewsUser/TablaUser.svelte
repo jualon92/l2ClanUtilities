@@ -91,16 +91,22 @@
     .nav-interna {
       gap: 100px;
     }
+    a:hover{ 
+      cursor: pointer!important;
+    }
+    
   }
   @media (max-width: 1000px) {
     .navbar {
       margin-bottom: 0.8rem !important;
     } 
 
+    
     .busqueda{
       gap: 10px;
     }
   }
+
 
   .navbar-brand {
     margin-right: 40px;
