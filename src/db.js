@@ -117,11 +117,12 @@ await addDoc(actividadesRef, {
     email: email
 });
 
-export const addPedido = async (personaje,item) =>
+export const addPedido = async (personaje,item,fecha) =>
 await addDoc(pedidosRef, {
     personaje:personaje,
     item:item,
-    etapa:"pendiente"
+    etapa:"pendiente",
+    fecha:fecha
 });
 
 

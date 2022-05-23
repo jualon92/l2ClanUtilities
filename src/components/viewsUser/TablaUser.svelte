@@ -94,11 +94,11 @@
     a:hover{ 
       cursor: pointer!important;
     }
-    
+
   }
   @media (max-width: 1000px) {
     .navbar {
-      margin-bottom: 0.8rem !important;
+       margin-bottom: 1rem !important; 
     } 
 
     

@@ -1,6 +1,11 @@
 <script>
     import { fly, scale, fade, slide } from "svelte/transition";
+    import dayjs from "dayjs"
+    import { es } from "dayjs/locale/es";
+    import localeData from "dayjs/plugin/localeData";
+ 
     import { addPedido, addPuntaje, getDataByMail, getDataByName } from "../db";
+   
     import {
         PersonajeActual,
         Puntaje,
@@ -9,6 +14,10 @@
     } from "../stores";
     import { onMount } from "svelte";
 
+    dayjs.locale("es");
+    dayjs.extend(localeData);
+
+   
     let mostrarHistorial = false;
     let puntosRequest = "";
     const tallum = {
@@ -335,17 +344,25 @@
 
             mostrarPedido = false;
 
+
+            //fecha
+            let now = dayjs(new Date())
+            console.warn(now.format("DD/MM/YY"))
+
+
             //setear pedido nuevo en firebase
-            addPedido($PersonajeActual, partePedida.nombre);
+            addPedido($PersonajeActual, partePedida.nombre, now.format("DD/MM/YY"));
             //setear pedido en cliente
             const listaNueva = [
                 ...$Pedidos,
-                { personaje: $PersonajeActual, item: partePedida.nombre },
+                { personaje: $PersonajeActual, item: partePedida.nombre, etapa:"pendiente", fecha:now.format("DD/MM/YY") },
             ];
             Pedidos.set(listaNueva);
 
 
             mostrarHistorial = true
+
+           
         }
     };
 </script> 
@@ -420,6 +437,7 @@
             <th scope="col">Pedido</th>
             <th scope="col">Personaje</th>
             <th scope="col">Estado</th>
+            <th scope="col">Fecha</th>
           </tr>
         </thead>
         <tbody> 
@@ -427,8 +445,8 @@
                    <tr class="table-active">
                     <th scope="row">{pedido.item} </th>
                     <td>{pedido.personaje}</td>
-                    <td> <button class="badge  bg-success  badge-estado btn-lg rounded-pill table-striped ">{pedido.etapa}</button> </td>
-                  
+                    <td> <button class="badge   badge-estado btn-lg rounded-pill table-striped  {pedido.etapa == "finalizado" ? "bg-warning" : "bg-success"}"    >{pedido.etapa}</button> </td>
+                    <td>{pedido.fecha}</td>
                   </tr>
             {/each}
         
@@ -440,7 +458,7 @@
         <div class="contenedor-infoPedido" in:fade={{ duration: 400 }}>
             <div class="form-group">
                 <fieldset>
-                    <label class="form-label mt-4" for="readOnlyInput"
+                    <label class="form-label" for="readOnlyInput"
                         >Pedido</label
                     >
                     <input
@@ -508,7 +526,7 @@
                 >
                 <button
                     class="btn btn-primary btn-comprar"
-                    class:disabled={resultadoTotal() <= 0}
+                    class:disabled={resultadoTotal() < 0}
                     on:click={procederCompra}>Confirmar</button
                 >
             </div>
@@ -636,10 +654,7 @@
         text-align: center;
     }
 
-    table {
-        margin-top: 15px;
-    }
-
+   
 
     .nav-sets {
         min-width: 150px;
@@ -682,6 +697,13 @@
 
         
     }
+    @media (max-width:360px){
+        .table>:not(caption)>*>* {
+            padding: 0.5rem 0.25rem!important;
+        }
+
+    }
+
     @media (max-width: 1000px) {
         /* mobile */
         .contenedor-pedidos {
@@ -691,6 +713,17 @@
             justify-content: center;
             align-items: center;
         }
+
+        .table>:not(caption)>*>* {
+            padding: 0.5rem 0.4rem;
+        }
+
+        table {
+        margin-top: 15px;
+    }
+
+
+
         .tipo {
             flex-wrap: nowrap;
         }
