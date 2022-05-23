@@ -1,9 +1,9 @@
 <script>
-    import { ListaPersonas , EsAdmin} from "../../stores";
+    import { ListaPersonas , EsAdmin, Puntaje} from "../../stores";
     import { get, writable } from "svelte/store";
     import { onMount } from "svelte";
     import {fly, scale} from "svelte/transition"
-   
+    import {getAll} from "../../db"
     
     import { addPuntaje, deleteNombreDB } from "../../db.js";
  
@@ -24,6 +24,9 @@
         puntos = parseInt(puntos) + 1;
 
         addPuntaje(nombre, puntos);
+        
+       // ListaPersonas.set(getAll()) 
+       Puntaje.set(puntos)
     };
 
     const restarPuntaje = async () => { //refactor
@@ -35,15 +38,16 @@
         }
 
         addPuntaje(nombrePersona, puntos);
+        Puntaje.set(puntos)
     };
 
     onMount( async() => {
 
         console.log("entre")
-       /* let lista = await getAll()
+       let lista = await getAll()
 		console.log("array")
 		ListaPersonas.set(lista)
-		console.log(get(ListaPersonas))*/
+		console.log(get(ListaPersonas))
     })
 </script>
 

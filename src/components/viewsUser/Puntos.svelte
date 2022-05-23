@@ -2,7 +2,13 @@
     import { ListaPersonas, PersonajeActual } from "../../stores";
     import ListaUser from "../viewsUser/ListaUser.svelte";
     import { get } from "svelte/store"
-     
+    import {onMount} from "svelte"
+
+    onMount( async () => {
+        const datosUser = await getDataByMail(user.email);
+        PersonajeActual.set(datosUser.nombrePersona)
+        ListaPersonas.set(getListaOrdenada(datosUser)) 
+    })
  
 </script>
 

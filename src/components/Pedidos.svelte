@@ -3,7 +3,7 @@
     import dayjs from "dayjs"
     import { es } from "dayjs/locale/es";
     import localeData from "dayjs/plugin/localeData";
-   
+    import {getPedidos} from "../db"
     import { addPedido, addPuntaje, getDataByMail, getDataByName } from "../db";
     import * as animateScroll from "svelte-scrollto";
     import {
@@ -17,7 +17,10 @@
     dayjs.locale("es");
     dayjs.extend(localeData);
 
-   
+    onMount( async () => {
+        const pedidos = await getPedidos();
+        Pedidos.set(pedidos) 
+    })
     let mostrarHistorial = false;
     let puntosRequest = "";
     const tallum = {
@@ -357,6 +360,7 @@
             let now = dayjs(new Date())
             console.warn(now.format("DD/MM/YY"))
 
+          
 
             //setear pedido nuevo en firebase
             addPedido($PersonajeActual, partePedida.nombre, now.format("DD/MM/YY"));
@@ -502,7 +506,7 @@
                     />
 
                     <label class="form-label mt-4" for="readOnlyInput"
-                        >Puntos restantes</label
+                        >Puntos luego de operacion</label
                     >
                     <input
                         class:is-invalid={$Puntaje - partePedida.precio < 0}
@@ -701,7 +705,7 @@
         .icon-item {
         }
         .contenedor-pedidos {
-            width: 70%;
+           /* width: 70%; */
             display: flex;
             gap: 40px;
         }

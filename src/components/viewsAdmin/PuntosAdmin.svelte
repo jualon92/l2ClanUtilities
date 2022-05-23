@@ -2,9 +2,21 @@
     import { ListaPersonas } from "../../stores";
     import Lista from "../viewsAdmin/Lista.svelte";
     import  AddPersona  from "../viewsAdmin/AddPersona.svelte"
+    import {onMount} from "svelte"
+
+    onMount( async () => {
+        console.log("carge")
+     /*
+    const datosUser = await getDataByMail(user.email);
+    PersonajeActual.set(datosUser.nombrePersona)
+    ListaPersonas.set(getListaOrdenada(datosUser))  */
+})
+
 </script>
 
  
+ 
+
 <div class="table-bordered contenedor table-responsive	tabla-admin ">
     <table class="table table-hover w-60 table-striped   ">
         <thead>
@@ -32,7 +44,14 @@
     .tabla-admin{
         box-shadow: 0px 0px 36px 15px rgba(0, 0, 0, 0.28);
         margin:0 auto;
-        width:60%;
+       
+    }
+
+    @media (max-width:1000px){
+        .tabla-admin{
+       
+        width:100%;
+    }
     }
     
     
