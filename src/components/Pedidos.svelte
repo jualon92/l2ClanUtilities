@@ -3,9 +3,9 @@
     import dayjs from "dayjs"
     import { es } from "dayjs/locale/es";
     import localeData from "dayjs/plugin/localeData";
- 
-    import { addPedido, addPuntaje, getDataByMail, getDataByName } from "../db";
    
+    import { addPedido, addPuntaje, getDataByMail, getDataByName } from "../db";
+    import * as animateScroll from "svelte-scrollto";
     import {
         PersonajeActual,
         Puntaje,
@@ -316,6 +316,11 @@
     };
 
     const procederCompra = async () => {
+
+         
+        animateScroll.scrollTo({element: 'table', duration: 2000})
+
+
         //chequear si tiene los puntos necesario
         puntosRequest = await getDataByName($PersonajeActual);
         let puntos = puntosRequest.puntos;
@@ -323,6 +328,9 @@
         if (puntos - partePedida.precio >= 0) {
             //continuar compra
             const puntosAEnviar = puntos - partePedida.precio;
+
+
+            
 
             //firebase cambiar puntaje
             addPuntaje($PersonajeActual, puntosAEnviar);
@@ -371,6 +379,8 @@
  
 <div class="pedidos-actuales mb-3"  >
     <button
+    on:click={() => animateScroll.scrollToBottom()}
+
         on:click|preventDefault={() => (mostrarHistorial = true)}
         class="btn btn-info"
     >
@@ -596,7 +606,8 @@
                                     <td
                                         ><button
                                             class="btn btn-primary"
-                                            on:click|preventDefault={async () => (
+                                             
+                                             on:click|preventDefault={async () => (
                                                 (mostrarPedido = true),
                                                 (partePedida = parte) 
                                             )}>Pedir</button
