@@ -379,7 +379,7 @@
     };
 </script> 
 
-
+<div class="contenedor-canje"> 
  
 <div class="pedidos-actuales mb-3"  >
     <button
@@ -646,7 +646,18 @@
     </div>
 </div>
 </div>
+
+
+</div>
 <style>
+
+    .contenedor-canje{
+        display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 100%;
+}
+    
     .badge-estado{
         padding: 0.5rem 1rem!important;
     }

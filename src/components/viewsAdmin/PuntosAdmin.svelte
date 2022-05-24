@@ -53,6 +53,14 @@
         width:100%;
     }
     }
-    
+    @media screen and (min-width:1000px){
+        .tabla-admin{
+       
+            width: 65%;
+    }
+    }
+
+
+  
     
 </style>

@@ -58,16 +58,18 @@
  
   
 <style>
+
+ 
     .contenedor-template{
       min-width: 100%;
     }
-     
+     /*
     @media (min-width:1000px){
       .contenedor-template{
       min-width: 80%;
     } 
-
-    } 
+ 
+    } */
     .nav-interna{
         gap:40px;
     }
