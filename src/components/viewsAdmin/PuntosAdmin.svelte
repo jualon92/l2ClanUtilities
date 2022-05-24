@@ -46,6 +46,13 @@
         margin:0 auto;
        
     }
+    
+    @media (min-width:1300px) {
+        .tabla-admin{
+       
+            width: 40%;
+    }
+    }
 
     @media (max-width:1000px){
         .tabla-admin{
@@ -53,7 +60,7 @@
         width:100%;
     }
     }
-    @media screen and (min-width:1000px){
+    @media screen and (min-width:1000px) and (max-width:1290px) {
         .tabla-admin{
        
             width: 65%;

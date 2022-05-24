@@ -59,7 +59,9 @@
   
 <style>
 
- 
+a:hover{ 
+      cursor: pointer!important;
+    }
     .contenedor-template{
       min-width: 100%;
     }
