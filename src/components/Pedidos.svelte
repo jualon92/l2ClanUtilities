@@ -705,7 +705,7 @@
         .icon-item {
         }
         .contenedor-pedidos {
-           /* width: 70%; */
+             width: 70%;  
             display: flex;
             gap: 40px;
         }
