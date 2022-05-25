@@ -7,8 +7,8 @@
     import localeData from "dayjs/plugin/localeData";
     import * as animateScroll from "svelte-scrollto"
     import {addPuntaje, addPedido} from "../../db"
-   
-
+    import ToastPedido from "./ToastPedido.svelte"
+    import ColumnaItems from "./ColumnaItems.svelte"
     dayjs.locale("es");
     dayjs.extend(localeData);
 
@@ -36,12 +36,14 @@
 
             //alerta pedido realizado
             
-            /*
+            
             let myAlert = document.querySelector(".toast");
+            console.warn(myAlert)
             let bsAlert = new bootstrap.Toast(myAlert);
             bsAlert.show();
-            */
+             
 
+            
 
             //actualizar pares personas-puntos
             let index = $ListaPersonas.findIndex(
@@ -85,6 +87,7 @@
 </script>
 
 <div class="contenedor-infoPedido" in:fade={{ duration: 400 }}>
+     
     <div class="form-group">
         <fieldset>
             <label class="form-label" for="readOnlyInput"
@@ -150,7 +153,7 @@
     <div class="botonera-pedido">
         <button
             class="btn btn-primary"
-            on:click={() => (mostrarPedido = false)}
+            on:click={() => (Seleccionado.set(ColumnaItems))}
             >Volver atras</button
         >
         <button
@@ -159,7 +162,11 @@
             on:click={procederCompra}>Confirmar</button
         >
     </div>
+     
 </div>
+ 
+
+
 <style>
      .botonera-pedido {
         align-self: end;
@@ -176,7 +183,9 @@
         gap: 40px;
         min-width: 40%;
     }
-
+    .toast-container {
+    padding-top: 6% !important;
+}
     
 </style>
  

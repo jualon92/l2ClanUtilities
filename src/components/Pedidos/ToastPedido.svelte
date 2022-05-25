@@ -1,4 +1,8 @@
-<div class="toast-container position-absolute  top-0 end-0  p-4">
+<script>
+  
+</script>
+
+<div class="toast-container position-absolute ">
     <div
         class="toast  "
         role="alert"

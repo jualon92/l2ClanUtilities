@@ -26,6 +26,10 @@
     };
 </script>
 
+
+  
+
+
 {#if !$EsAdmin}
     <table
         class="table table-hover table-responsive "
