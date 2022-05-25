@@ -141,3 +141,23 @@
         >
     </div>
 </div>
+<style>
+     .botonera-pedido {
+        align-self: end;
+    }
+
+
+.btn-comprar {
+    margin-left: 8px;
+}
+
+.contenedor-infoPedido {
+        display: flex;
+        flex-direction: column;
+        gap: 40px;
+        min-width: 40%;
+    }
+
+    
+</style>
+ 

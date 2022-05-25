@@ -1,13 +1,15 @@
 <script>
     import { fade, scale } from "svelte/transition";
-    import {ItemSetName, SeleccionTipoItem, SeleccionTipoActual, Seleccionado, PartePedida } from "../../stores"
-    import SeleccionItems from "./SeleccionItems.svelte"
-   
+    import {
+        ItemSetName,
+        SeleccionTipoItem,
+        SeleccionTipoActual,
+        Seleccionado,
+        PartePedida,
+    } from "../../stores";
+    import SeleccionItems from "./SeleccionItems.svelte";
+
     $: seleccion = $ItemSetName;
-  
-
-  
-
 </script>
 
 <div class="contenedor-item  " in:fade={{ duration: 300 }}>
@@ -18,10 +20,9 @@
             class=" nav-link robe"
             href={1}
             on:click|preventDefault={() => (
-                  (SeleccionTipoActual.set("robe")),
-                  (console.log(seleccion.robe)),
-              (SeleccionTipoItem.set(seleccion.robe))
-    
+                SeleccionTipoActual.set("robe"),
+                console.log(seleccion.robe),
+                SeleccionTipoItem.set(seleccion.robe)
             )}>Robe</a
         >
 
@@ -30,8 +31,8 @@
             class="nav-link robe"
             href={2}
             on:click|preventDefault={() => (
-                 (SeleccionTipoActual.set("heavy")),
-                 (SeleccionTipoItem.set(seleccion.heavy))
+                SeleccionTipoActual.set("heavy"),
+                SeleccionTipoItem.set(seleccion.heavy)
             )}>Heavy</a
         >
         <a
@@ -39,12 +40,12 @@
             class="nav-link robe"
             href={3}
             on:click|preventDefault={() => (
-                (SeleccionTipoActual.set("light")),
-                (SeleccionTipoItem.set(seleccion.light))
+                SeleccionTipoActual.set("light"),
+                SeleccionTipoItem.set(seleccion.light)
             )}>Light</a
         >
     </div>
-  
+
     {#if $SeleccionTipoItem}
         <table class="table table-hover table-striped ">
             <thead>
@@ -76,10 +77,10 @@
                             <td
                                 ><button
                                     class="btn btn-primary"
-                                    on:click|preventDefault={async () => (
-                                        (Seleccionado.set(SeleccionItems)) 
-                                        (PartePedida.set(parte))
-                                    )}>Pedir</button
+                                    on:click|preventDefault={async () =>
+                                        Seleccionado.set(SeleccionItems)(
+                                            PartePedida.set(parte)
+                                        )}>Pedir</button
                                 ></td
                             >
                         </tr>
@@ -87,5 +88,63 @@
                 {/each}
             </tbody>
         </table>
-    {/if}  
+    {/if}
 </div>
+
+<style>
+      @media (max-width: 370px) {
+        th,td {
+            padding: 0.5rem 0.25rem !important;
+        }
+    }
+    
+    .contenedor-item {
+        width: 60%;
+    }
+
+    .item-nombre {
+        border-bottom: 1px solid #ddd;
+
+        margin-bottom: 0 !important;
+
+        padding: 1rem;
+        padding-top: 15px;
+    }
+
+    .tipo {
+        display: flex;
+        flex-direction: row;
+        border-bottom: 1px solid #ddd;
+        padding: 1rem;
+        justify-content: space-around;
+    }
+    .table-active {
+        vertical-align: middle;
+    }
+
+    @media (max-width: 1000px) {
+        .table > :not(caption) > * > * {
+            padding: 0.5rem 0.4rem;
+        }
+
+        table {
+            margin-top: 15px;
+        }
+
+        .tipo {
+            flex-wrap: nowrap;
+        }
+        .item-nombre {
+            text-align: center;
+        }
+        .contenedor-item {
+            width: 90%;
+        }
+
+        table {
+            margin-top: 15px;
+        }
+    }
+
+   
+</style>

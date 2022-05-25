@@ -118,3 +118,17 @@
         </table>
     </div>
 {/if}
+
+<style>
+.badge-estado {
+    padding: 0.5rem 1rem !important;
+}
+
+@media (max-width: 370px) {
+    .table>:not(caption)>*>* {
+            padding: 0.5rem 0.25rem !important;
+        }
+    }
+
+</style>
+ 

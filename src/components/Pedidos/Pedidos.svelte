@@ -92,9 +92,7 @@
         min-width: 100%;
     }
 
-    .badge-estado {
-        padding: 0.5rem 1rem !important;
-    }
+  
     .pedidos-container {
         align-self: center;
     }
@@ -107,32 +105,14 @@
         text-align: center;
     }
 
-    .table-active {
-        vertical-align: middle;
-    }
+   
 
     .nav-sets {
         min-width: 150px;
     }
-    .tipo {
-        display: flex;
-        flex-direction: row;
-        border-bottom: 1px solid #ddd;
-        padding: 1rem;
-        justify-content: space-around;
-    }
-    .item-nombre {
-        border-bottom: 1px solid #ddd;
+    
 
-        margin-bottom: 0 !important;
-
-        padding: 1rem;
-        padding-top: 15px;
-    }
-
-    .contenedor-item {
-        width: 60%;
-    }
+    
     .titulo {
         transform: translateX(-25px);
         font-weight: bolder;
@@ -150,11 +130,13 @@
             gap: 40px;
         }
     }
-    @media (max-width: 360px) {
-        .table > :not(caption) > * > * {
-            padding: 0.5rem 0.25rem !important;
-        }
+  
+
+  
+    ::placeholder {
+        color: black;
     }
+ 
 
     @media (max-width: 1000px) {
         /* mobile */
@@ -164,55 +146,15 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-        }
 
-        .table > :not(caption) > * > * {
-            padding: 0.5rem 0.4rem;
         }
-
-        table {
-            margin-top: 15px;
-        }
-
-        .tipo {
-            flex-wrap: nowrap;
-        }
-        .item-nombre {
-            text-align: center;
-        }
-        .contenedor-item {
-            width: 90%;
-        }
-
-        table {
-            margin-top: 15px;
-        }
-
         .pedidos-actuales {
             display: flex;
             width: 100%;
             justify-content: center;
         }
     }
-    ::placeholder {
-        color: black;
-    }
-    .pedido-info {
-        border-bottom-style: groove;
-    }
 
-    .contenedor-infoPedido {
-        display: flex;
-        flex-direction: column;
-        gap: 40px;
-        min-width: 40%;
-    }
-
-    .botonera-pedido {
-        align-self: end;
-    }
-
-    .btn-comprar {
-        margin-left: 8px;
-    }
+    
+    
 </style>
