@@ -1,7 +1,10 @@
 <script>
     import { EsAdmin, Pedidos } from "../../stores";
     import { fade, scale } from "svelte/transition";
-
+    import * as animateScroll from "svelte-scrollto"
+    import {onMount} from "svelte"
+    import {deletePedido, setPedidoEstado} from "../../db"
+  
     const cambiarEtapa = async (pedido) => {
         let indice = $Pedidos.findIndex((ele) => ele.nombre == pedido.nombre);
         const nuevaEtapa =

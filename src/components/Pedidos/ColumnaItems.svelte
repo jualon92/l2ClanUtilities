@@ -8,6 +8,7 @@
         PartePedida,
     } from "../../stores";
     import SeleccionItems from "./SeleccionItems.svelte";
+    import * as animateScroll from "svelte-scrollto"
 
     $: seleccion = $ItemSetName;
 </script>
@@ -22,7 +23,8 @@
             on:click|preventDefault={() => (
                 SeleccionTipoActual.set("robe"),
                 console.log(seleccion.robe),
-                SeleccionTipoItem.set(seleccion.robe)
+                SeleccionTipoItem.set(seleccion.robe),
+                animateScroll.scrollToBottom()
             )}>Robe</a
         >
 
@@ -32,7 +34,8 @@
             href={2}
             on:click|preventDefault={() => (
                 SeleccionTipoActual.set("heavy"),
-                SeleccionTipoItem.set(seleccion.heavy)
+                SeleccionTipoItem.set(seleccion.heavy),
+                animateScroll.scrollToBottom()
             )}>Heavy</a
         >
         <a
@@ -41,7 +44,8 @@
             href={3}
             on:click|preventDefault={() => (
                 SeleccionTipoActual.set("light"),
-                SeleccionTipoItem.set(seleccion.light)
+                SeleccionTipoItem.set(seleccion.light),
+                animateScroll.scrollToBottom()
             )}>Light</a
         >
     </div>
@@ -77,10 +81,10 @@
                             <td
                                 ><button
                                     class="btn btn-primary"
-                                    on:click|preventDefault={async () =>
-                                        Seleccionado.set(SeleccionItems)(
-                                            PartePedida.set(parte)
-                                        )}>Pedir</button
+                                    on:click|preventDefault={async () => {
+                                        Seleccionado.set(SeleccionItems),
+                                        PartePedida.set(parte);
+                                    }}>Pedir</button
                                 ></td
                             >
                         </tr>
@@ -92,8 +96,6 @@
 </div>
 
 <style>
-     
-
     .contenedor-item {
         width: 60%;
     }
@@ -141,6 +143,4 @@
             margin-top: 15px;
         }
     }
-
-   
 </style>

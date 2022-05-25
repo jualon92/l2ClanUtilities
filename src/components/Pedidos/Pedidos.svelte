@@ -17,8 +17,7 @@
 
     import MostrarHistorial from "./MostrarHistorial.svelte";
     import ColumnaItems from "./ColumnaItems.svelte";
-    dayjs.locale("es");
-    dayjs.extend(localeData);
+    
 
 
     //obtener pedidos 

@@ -1,15 +1,26 @@
 <script>
     import {fade,scale} from "svelte/transition"
-    import {Puntaje, PersonajeActual, ListaPersonas, Pedidos, PartePedida} from "../../stores"
-    import {addPuntaje} from "../../db"
+    import {Puntaje, PersonajeActual, ListaPersonas, Pedidos, PartePedida, Seleccionado} from "../../stores"
+    import MostrarHistorial from "./MostrarHistorial.svelte"
+    import {getDataByName} from "../../db"
+    import dayjs from "dayjs"
+    import localeData from "dayjs/plugin/localeData";
+    import * as animateScroll from "svelte-scrollto"
+    import {addPuntaje, addPedido} from "../../db"
+   
+
+    dayjs.locale("es");
+    dayjs.extend(localeData);
+
+
     $: partePedida = $PartePedida
     let puntosRequest = "";
 
     const resultadoTotal = () => $Puntaje - partePedida.precio;
 
     const procederCompra = async () => {
-        animateScroll.scrollTo({ element: "table", duration: 2000 });
-
+       // animateScroll.scrollTo({ element: "table", duration: 2000 });
+       
         //chequear si tiene los puntos necesario
         puntosRequest = await getDataByName($PersonajeActual);
         let resultadoFinal = puntosRequest.puntos - partePedida.precio;
@@ -24,9 +35,13 @@
             Puntaje.set(resultadoFinal);
 
             //alerta pedido realizado
+            
+            /*
             let myAlert = document.querySelector(".toast");
             let bsAlert = new bootstrap.Toast(myAlert);
             bsAlert.show();
+            */
+
 
             //actualizar pares personas-puntos
             let index = $ListaPersonas.findIndex(
@@ -35,7 +50,10 @@
             $ListaPersonas[index].puntos = $Puntaje;
             console.log($ListaPersonas[index].puntos);
 
+            /*
             mostrarPedido = false;
+            */
+
 
             //fecha
             let now = dayjs(new Date());
@@ -59,7 +77,8 @@
             ];
             Pedidos.set(listaNueva);
 
-            seleccionado.component = MostrarHistorial;
+            Seleccionado.set(MostrarHistorial)
+            
         }
     };
 
