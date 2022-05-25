@@ -4,7 +4,7 @@
   import AddPersonaUser from "./AddPersonaUser.svelte";
   import Puntos from "../viewsUser/Puntos.svelte";
   import Actividades from "../Actividades.svelte";
-  import Pedidos from "../Pedidos.svelte";
+  import Pedidos from "../Pedidos/Pedidos.svelte"
   import Informacion from "../Informacion.svelte";
 
   const arrayElecciones = [

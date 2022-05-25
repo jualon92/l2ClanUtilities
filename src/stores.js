@@ -16,3 +16,13 @@ export const PersonajeActual = writable("")
 export const Puntaje = writable("")
 
 export const Pedidos = writable([])
+
+export const ItemSetName = writable("")
+
+export const SeleccionTipoItem = writable("")
+
+export const SeleccionTipoActual = writable("")
+
+export const Seleccionado = writable("")
+
+export const PartePedida = writable("")
