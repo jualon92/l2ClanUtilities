@@ -92,12 +92,8 @@
 </div>
 
 <style>
-      @media (max-width: 370px) {
-        th,td {
-            padding: 0.5rem 0.25rem !important;
-        }
-    }
-    
+     
+
     .contenedor-item {
         width: 60%;
     }
