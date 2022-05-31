@@ -6,12 +6,14 @@
   import Actividades from "../Actividades.svelte";
   import Pedidos from "../Pedidos/Pedidos.svelte"
   import Informacion from "../Informacion.svelte";
+  import PasarPuntos from "./PasarPuntos.svelte"
 
   const arrayElecciones = [
     { component: Puntos },
     { component: Actividades },
     { component: Pedidos },
     { component: Informacion },
+    { component: PasarPuntos}
   ];
 
   let seleccion = arrayElecciones[0];
@@ -58,6 +60,14 @@
             href={null}
             on:click|stopPropagation|preventDefault={() =>
               (seleccion = arrayElecciones[2])}>Pedidos</a
+          >
+        </li>
+        <li class="nav-item">
+          <a
+            class="nav-link"
+            href={null}
+            on:click|stopPropagation|preventDefault={() =>
+              (seleccion = arrayElecciones[4])}>Enviar Puntos</a
           >
         </li>
         <li class="nav-item">

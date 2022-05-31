@@ -1,7 +1,8 @@
 <script>
 	import { onMount } from "svelte";
+	 
  
- 
+
 	import { ListaPersonas, estaEnLogin } from "./stores.js";
 	import { get} from "svelte/store"
  
