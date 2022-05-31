@@ -52,8 +52,10 @@
        
             width: 40%;
     }
+ 
     }
 
+    
     @media (max-width:1000px){
         .tabla-admin{
        

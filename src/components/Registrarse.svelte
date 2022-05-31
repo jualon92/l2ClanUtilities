@@ -35,12 +35,12 @@
         )
             .then((userCredential) => {
                 //cree usuario en cliente
-
+                const puntosIniciales =  "15"//puntos que todo usuario trae consigo
                 const user = userCredential.user;
                 console.log("user creado", userCredential.user);
                 window.localStorage.setItem("logeando", "true");
                 console.log(nombrePJ);
-                const nuevaPersona = { nombrePersona: nombrePJ, puntos: 0, email:emailRegistro };
+                const nuevaPersona = { nombrePersona: nombrePJ, puntos: puntosIniciales, email:emailRegistro };
 
                 if (!nombreYaExiste(nombrePJ)) {
                     //si no existe nombre agregarlo

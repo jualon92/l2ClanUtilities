@@ -51,5 +51,13 @@
         width: 50%;
     }
     }
+    @media screen and (min-width:1300px){
+        .contenedor-usuario{
+        width: 30%;
+    }
+    }
+    
+
+
      
 </style>

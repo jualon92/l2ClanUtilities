@@ -12,7 +12,7 @@
     dayjs.locale("es");
     dayjs.extend(localeData);
 
-
+    
     $: partePedida = $PartePedida
     let puntosRequest = "";
 

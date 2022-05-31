@@ -60,7 +60,7 @@ const getIdByName = async (nombre) => {
     let idBuscado = null;
     querySnapshot.forEach((doc) => {
         // doc.data() is never undefined for query doc snapshots
-        console.log(doc.id, " => ", doc.data().nombre);
+        console.log(doc.id, " => ", doc.data().nombrePersona);
         idBuscado = doc.id;
     });
     console.log(idBuscado);
@@ -114,7 +114,7 @@ export const getRol = async (email) => {
 export const addNameToDb = async (name,email) =>
 await addDoc(actividadesRef, {
     nombrePersona:name,
-    puntos: "0",
+    puntos: "15",
     email: email
 });
 
@@ -138,10 +138,13 @@ export const deleteNombreDB = async (nombre) => {
 
 
 export const addPuntaje = async (nombre, puntos) => {
+    console.log("buscando con nombre", nombre)
     const idBuscado = await getIdByName(nombre)
-    const dbRef = doc(db, "rank", idBuscado);
+    console.log("id encontrado", idBuscado)
 
-    updateDoc(dbRef, { puntos });
+    const dbRef = await doc(db, "rank", idBuscado);
+    console.log("ref ", dbRef)
+    await updateDoc(dbRef, { puntos });
 }
 
 
