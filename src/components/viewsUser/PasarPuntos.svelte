@@ -7,6 +7,7 @@ import { addPuntaje, getDataByName } from "../../db";
     $: listaPersonasNombre = $ListaPersonas.map(ele => ele.nombrePersona)
     let selectedPJ;
     $: puntosSeleccionados = 1;
+    $: seleccionado = false
 
     const realizar = async (puntosATrabajar) => {
         //quitar puntos
@@ -57,14 +58,18 @@ import { addPuntaje, getDataByName } from "../../db";
         console.log("after", $ListaPersonas)
 
     }
+
+   
+
 </script>
 <div class="contenedor-enviarPuntos">  
 <div class="mi-personaje">Mi Personaje: {$PersonajeActual}</div>
 <div class="mis-puntos">Mis Puntos: {$Puntaje}</div>
 
+ 
 {#if $Puntaje > 0 }
 <div class="enviar-target"> 
-    <AutoComplete   moreItemsText="mas" items="{listaPersonasNombre}" bind:selectedItem="{selectedPJ}" placeholder="Personaje a Enviar"/>
+    <AutoComplete onChange="{() => seleccionado = true}" moreItemsText="mas" items="{listaPersonasNombre}" bind:selectedItem="{selectedPJ}" placeholder="Personaje a Enviar"/>
 </div>
 
 <div class="rango-puntos">  
@@ -72,19 +77,20 @@ import { addPuntaje, getDataByName } from "../../db";
     
 <label for="cantidad-puntos">Puntos a enviar: {puntosSeleccionados}</label>
  
-<input type="range" class="form-range" name="cantidad-puntos" id="customRange3"   min="1" max={$Puntaje}  bind:value={puntosSeleccionados}  >
+<input type="range" class="form-range" name="cantidad-puntos" id="customRange3"   min="1" max={$Puntaje}  bind:value={puntosSeleccionados} required  	  >
 </div>
 {:else}
 No hay puntos que enviar    :(   
 
 {/if}
  
-
-<button class="btn btn-outline-primary puntos-enviar" on:click|preventDefault={() => realizar(puntosSeleccionados)}>Enviar </button>
+ 
+<button class:disabled="{seleccionado === false}" type="submit" class="btn btn-outline-primary puntos-enviar" on:click|preventDefault={() => realizar(puntosSeleccionados)}>Enviar </button>
  
 
 </div>
 <style>
+     
    .contenedor-enviarPuntos{
     display: flex;
     flex-direction: column;
