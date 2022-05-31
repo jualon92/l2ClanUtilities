@@ -17,7 +17,7 @@
 
   
 <label for="cantidad-puntos">Cantidad Puntos: {puntosSeleccionados}</label>
-<input type="range" class="form-range" name="cantidad-puntos" id="customRange3"   min="1" max="10"  bind:value={puntosSeleccionados}  >
+<input type="range" class="form-range" name="cantidad-puntos" id="customRange3"   min="1" max={$Puntaje}  bind:value={puntosSeleccionados}  >
 </div>
 
 <button class="btn btn-outline-primary puntos-enviar">Enviar </button>
