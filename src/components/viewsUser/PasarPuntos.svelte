@@ -7,6 +7,7 @@
     let selectedPJ;
     $: puntosSeleccionados = 1;
     $: seleccionado = false;
+    let disabled = true
 
     const realizar = async (puntosATrabajar) => {
         //quitar puntos
@@ -80,7 +81,7 @@
                 <li class="list-group-item">
                     <div class="enviar-target">
                         <AutoComplete
-                            onChange={() => (seleccionado = true)}
+                            onFocus={() => (disabled = false)}
                             moreItemsText="mas"
                             items={listaPersonasNombre}
                             bind:selectedItem={selectedPJ}
@@ -112,10 +113,10 @@
             {/if}
 
             <button
-                class:disabled={seleccionado === false}
+               
                 type="submit"
-                class="btn btn-outline-primary puntos-enviar"
-                on:click|preventDefault={() => realizar(puntosSeleccionados)}
+                class="btn btn-primary puntos-enviar "
+                on:click|preventDefault={() => realizar(puntosSeleccionados) }   {disabled}
                 >Enviar
             </button>
         </ul>
@@ -123,6 +124,7 @@
 </div>
 
 <style>
+    
     .list-group-item {
         padding-top: 1.5rem;
         padding-bottom: 1.5rem;
