@@ -48,7 +48,7 @@
 
     @media screen and (min-width:1000px){
         .contenedor-usuario{
-        width: 40%;
+        width: 50%;
     }
     }
      

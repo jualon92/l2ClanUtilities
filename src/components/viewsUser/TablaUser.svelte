@@ -99,7 +99,7 @@
 <style>
   @media screen and (min-width: 1000px) {
     .nav-interna {
-      gap: 100px;
+      gap: 20px;
     }
     a:hover{ 
       cursor: pointer!important;
