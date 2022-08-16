@@ -1,12 +1,23 @@
 
-Se requiere ranking de puntos  por usuario .  
+Se requiere ranking de puntos  por usuario, + shop para canjear puntos + tabla de puntajes/actividad  
 
-Administrador tiene sus credenciales y puede borrar usuarios, añadir o restar puntos.
+ - Roles  
+ 
+ 
+Administrador tiene sus credenciales y puede borrar usuarios, añadir o restar puntos. 
+Accede a vista de administrador
 
-Los usuarios  solo pueden ver tabla .
+Los usuarios acceden a vista limitada ( sin shop, read only)
+
+usuario administrador: pepita@gmail.com  pw:123456
+
+
+Al registrarse, usuario tiene permiso de user.
+
 
 Fondo y estetica pedida por cliente
 
+ - Herramientas
 
 Se utilizo firebase auth y firestore db para tabla de nombre-puntos, y para servir pagina segun si rol es usuario o administrador.
 
