@@ -1,15 +1,15 @@
+ADMIN credentials: pepita@gmail.com  pw:123456
+USER credentials : 
+
 
 Se requiere ranking de puntos  por usuario, + shop para canjear puntos + tabla de puntajes/actividad  
-
- - Roles  
+.Registro de usuarios
  
  
-Administrador tiene sus credenciales y puede borrar usuarios, añadir o restar puntos. 
+Administrador tiene sus credenciales y permisos para borrar usuarios, añadir o restar puntos. 
 Accede a vista de administrador
 
 Los usuarios acceden a vista limitada ( sin shop, read only)
-
-usuario administrador: pepita@gmail.com  pw:123456
 
 
 Al registrarse, usuario tiene permiso de user.
@@ -19,7 +19,7 @@ Fondo y estetica pedida por cliente
 
  - Herramientas
 
-Se utilizo firebase auth y firestore db para tabla de nombre-puntos, y para servir pagina segun si rol es usuario o administrador.
+Se utilizo firebase auth y firestore db para tabla de nombre-puntos, y servir pagina segun rol es usuario o administrador.
 
 
 SvelteKit para SPA, animate.css, y bootstrap(bootswatch flatly theme)
