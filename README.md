@@ -2,10 +2,10 @@ ADMIN credentials: pepita@gmail.com  pw:123456
 
 
 # Se requiere:
- - ranking de puntos  por usuario 
- - shop para canjear puntos 
- - tabla de puntajes/actividad  
- - Registro de usuarios
+ - ranking de puntos  por usuario registrado
+ - tabla de puntajes a añadir segun actividad (award board)
+ - shop para canjear puntos. Usuario elige item y si tiene puntos suficientes pasa a interfaz de pedidos. El administrador decide que hacer con el pedido.
+ - Registro de usuarios, jwt, manejado por firestore
  
  
 ## Credenciales
@@ -13,7 +13,6 @@ Administrador tiene sus credenciales y permisos para borrar usuarios, añadir o 
 Accede a vista de administrador
 
 Los usuarios acceden a vista limitada ( sin shop, read only)
-
 
 Al registrarse, usuario tiene permiso de user.
 
