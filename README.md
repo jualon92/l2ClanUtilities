@@ -1,5 +1,4 @@
 ADMIN credentials: pepita@gmail.com  pw:123456
-USER credentials : 
 
 
 Se requiere ranking de puntos  por usuario, + shop para canjear puntos + tabla de puntajes/actividad  
