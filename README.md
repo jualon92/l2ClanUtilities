@@ -1,10 +1,14 @@
 ADMIN credentials: pepita@gmail.com  pw:123456
 
 
-Se requiere ranking de puntos  por usuario, + shop para canjear puntos + tabla de puntajes/actividad  
-.Registro de usuarios
+# Se requiere:
+ - ranking de puntos  por usuario 
+ - shop para canjear puntos 
+ - tabla de puntajes/actividad  
+ - Registro de usuarios
  
  
+## Credenciales
 Administrador tiene sus credenciales y permisos para borrar usuarios, añadir o restar puntos. 
 Accede a vista de administrador
 
@@ -16,13 +20,14 @@ Al registrarse, usuario tiene permiso de user.
 
 Fondo y estetica pedida por cliente
 
- - Herramientas
+## Herramientas
 
 Se utilizo firebase auth y firestore db para tabla de nombre-puntos, y servir pagina segun rol es usuario o administrador.
 
 
 SvelteKit para SPA, animate.css, y bootstrap(bootswatch flatly theme)
 
+## Imagenes
 Login
 
 ![image](https://user-images.githubusercontent.com/46230600/168585437-93309f53-90e7-4d33-8468-ee626d1bb410.png)
@@ -54,4 +59,16 @@ Pantalla servida a usuarios,  con ranking de puntos por contribucion (el usuario
 
 ![image](https://user-images.githubusercontent.com/46230600/168584826-fc49ee9e-9058-4e8d-a997-218a80336236.png)
 
+ <hr>
  
+Shop, canjear puntos por items
+![image](https://user-images.githubusercontent.com/46230600/190926819-2a97ddff-cf6f-4d04-935b-118b1e3f589f.png)
+
+Puntos insuficientes
+![image](https://user-images.githubusercontent.com/46230600/190926831-9a250b84-d967-4970-90bb-69ba9469c608.png)
+
+
+Interface manejo de puntos de administrador
+![image](https://user-images.githubusercontent.com/46230600/190926848-5d29fa29-f228-4c49-bb91-71fe44d49284.png)
+
+
