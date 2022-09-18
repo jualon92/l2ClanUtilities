@@ -68,7 +68,7 @@ Puntos insuficientes
 ![image](https://user-images.githubusercontent.com/46230600/190926831-9a250b84-d967-4970-90bb-69ba9469c608.png)
 
 
-Interface manejo de puntos de administrador
+Admin Interface para decidir que hacer con los pedidos pendientes.
 ![image](https://user-images.githubusercontent.com/46230600/190926848-5d29fa29-f228-4c49-bb91-71fe44d49284.png)
 
 
