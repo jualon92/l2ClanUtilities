@@ -54,6 +54,8 @@
             <div class="card shadow-lg">
                 <div class="card-body p-4">
                     <h1 class="fs-4 card-title fw-bold mb-4">Login</h1>
+                    <div  class=" text-muted">Admin account: pepita@gmail.com   pw:123456</div>
+                    <div  class=" text-muted mb-4">User account: userprueba@gmail.com pw:123456</div>
                     <form
                         method="POST"
                         class="needs-validation"
